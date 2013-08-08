@@ -1,0 +1,40 @@
+* Clojure Cheatsheet for Emacs
+  
+The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.5 and
+packaged into an easy, fast, searchable, offline form.
+
+** Basic Usage
+   
+Call =M-x clojure-cheatsheet= and the cheatsheet will appear. Type
+in some terms (space separated) to narrow down the list.
+
+
+*** Keys
+
+| =C-n= | Next item                                        |
+| =C-p= | Previous item                                    |
+| =C-o= | Next section                                     |
+| =RET= | View the Clojure docs for the current selection. |
+| =TAB= | View alternative actions.                        |
+
+** Advanced Usage
+
+This package stands on top of Helm. The variable
+=helm-source-clojure-cheatsheet= is available if you want to mix it in
+as a Helm source.
+
+** Installation
+
+If you're hooked up to [[http://melpa.milkbox.net/][MELPA]]:
+
+#+BEGIN_EXAMPLE
+M-x package-refresh-contents
+M-x package-install RET clojure-cheatsheet
+#+END_EXAMPLE
+
+Alternatively just grab the single =clojure-cheatsheet.el= file and
+install that in your preferred way.
+
+** Status
+
+Ready to use. Based on Clojure 1.5.1. Feedback welcomed.
