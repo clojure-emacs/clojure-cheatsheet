@@ -1,5 +1,4 @@
-;;; -*- lexical-binding: t -*-
-;;; clojure-cheatsheet.el --- A helm version of the Clojure cheatsheet.
+;;; clojure-cheatsheet.el --- The Clojure Cheatsheet in Emacs
 ;; Copyright 2013 Kris Jenkins
 
 ;; Author: Kris Jenkins <krisajenkins@gmail.com>
@@ -406,18 +405,17 @@
    (t (list (mapcar 'clojure-cheatsheet/flatten node)))))
 
 (defun clojure-cheatsheet/symbol-qualifier
-  (namespace)
-  (lambda (symbol)
-    (intern (format "%s/%s" namespace symbol))))
+  (namespace symbol)
+  "Given a (Clojure) namespace and a symbol, fully-qualify that symbol."
+  (intern (format "%s/%s" namespace symbol)))
 
 (defun clojure-cheatsheet/handle-subnode
-  (head)
-  (lambda (subnode)
-    (cond
-     ((symbolp (car subnode)) (cons head subnode))
-     ((stringp (car subnode)) (cons (format "%s : %s" head (car subnode))
-				    (cdr subnode)))
-     (t (mapcar (clojure-cheatsheet/handle-subnode head) subnode)))))
+  (head subnode)
+  (cond
+   ((symbolp (car subnode)) (cons head subnode))
+   ((stringp (car subnode)) (cons (format "%s : %s" head (car subnode))
+				  (cdr subnode)))
+   (t (mapcar (apply-partially 'clojure-cheatsheet/handle-subnode head) subnode))))
 
 (defun clojure-cheatsheet/propagate-headings
   (node)
@@ -427,8 +425,8 @@
 	   (head (car postwalk))
 	   (tail (cdr postwalk)))
       (cond
-       ((symbolp head) (mapcar (clojure-cheatsheet/symbol-qualifier head) tail))
-       ((stringp head) (mapcar (clojure-cheatsheet/handle-subnode head) tail))
+       ((symbolp head) (mapcar (apply-partially 'clojure-cheatsheet/symbol-qualifier head) tail))
+       ((stringp head) (mapcar (apply-partially 'clojure-cheatsheet/handle-subnode head) tail))
        ((listp head) postwalk)
        (t (error "Unhandled case!"))))))
 
@@ -445,10 +443,6 @@
   		  (setq result (append result (list item))))))
 	    data)
     result))
-
-(defun clojure-cheatsheet/join
-  (separator &rest items)
-  (mapconcat 'identity items separator))
 
 (defun clojure-cheatsheet/lookup-doc
   (symbol)
@@ -469,7 +463,7 @@
     `((name . ,heading)
       (candidates ,@symbols)
       (match . ((lambda (candidate)
-		  (helm-mp-3-match (clojure-cheatsheet/join " " candidate ,heading)))))
+		  (helm-mp-3-match (format "%s %s" candidate ,heading)))))
       (action . (("Lookup Docs" . clojure-cheatsheet/lookup-doc)
 		 ("Lookup Source" . clojure-cheatsheet/lookup-src))))))
 
