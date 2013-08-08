@@ -17,7 +17,7 @@
 (require 'helm-match-plugin)
 (require 'nrepl)
 
-;;; Config:
+;;; Code
 
 (defvar clojure-cheatsheet-hierarchy
   '(("Primitives"
@@ -394,8 +394,6 @@
      ("Binding / Destructuring"
       (clojure.core let fn defn defmacro loop for doseq if-let when-let)))
     ))
-
-;;; Code
 
 (defun clojure-cheatsheet/flatten
   (node)
