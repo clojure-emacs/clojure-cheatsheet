@@ -1,7 +1,9 @@
 * Clojure Cheatsheet for Emacs
   
 The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.5 and
-packaged into an easy, fast, searchable, offline form.
+packaged into an easy, fast, searchable, offline form:
+
+[[screenshot1.png]]
 
 ** Basic Usage
    
