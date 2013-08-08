@@ -94,7 +94,7 @@
      ("Content tests"
       (clojure.core distinct? empty? every? not-every? some not-any?))
      ("Capabilities"
-      (clojure.core/sequential? associative? sorted? counted? reversible?))
+      (clojure.core sequential? associative? sorted? counted? reversible?))
      ("Type tests"
       (clojure.core coll? list? vector? set? map? seq?))
 
@@ -102,7 +102,7 @@
       ("Create"
        (clojure.core list list*))
       ("Examine"
-       (clojure.core/first nth peek))
+       (clojure.core first nth peek))
       ("'Change'"
        (clojure.core cons conj rest pop)))	    
 
@@ -249,7 +249,7 @@
 
     ("Concurrency"
      ("Atoms"
-      (clojure.core/atom swap! reset! compare-and-set!))
+      (clojure.core atom swap! reset! compare-and-set!))
      ("Futures"
       (clojure.core future future-call future-cancel future-cancelled? future-done? future?))
      ("Threads"
