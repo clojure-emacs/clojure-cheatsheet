@@ -13,11 +13,12 @@ try typing in =sort map= to some functions that deal with sorting maps.
 
 *** Keys
 
-| =C-n= | Next item                                        |
-| =C-p= | Previous item                                    |
-| =C-o= | Next section                                     |
-| =RET= | View the Clojure docs for the current selection. |
-| =TAB= | View alternative actions.                        |
+| =C-n= | Next item                                                                          |
+| =C-p= | Previous item                                                                      |
+| =C-o= | Next section                                                                       |
+| =RET= | Jump to the Clojure docs for the current selection.                                |
+| =C-z= | Jump to the Clojure docs for the current selection /without closing the cheatsheet/. |
+| =TAB= | View alternative actions.                                                          |
 
 ** Advanced Usage
 
