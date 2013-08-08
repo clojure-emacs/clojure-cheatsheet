@@ -1,2 +1,3 @@
 /helm-clojure-cheatsheet-autoloads.el
 *.elc
+/clojure-cheatsheet-autoloads.el
