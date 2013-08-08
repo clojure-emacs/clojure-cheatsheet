@@ -10,7 +10,9 @@
 ;; Version: 0.1.0
 ;; Package-Requires: ((helm "1.5.3") (nrepl "0.1.8"))
 
-;;; Commentary: 
+;;; Commentary:
+;;
+;; The Clojure Cheatsheet in Emacs.
 
 (require 'helm)
 (require 'helm-match-plugin)
