@@ -1,3 +1,7 @@
+* Hello!
+
+I'm busy being packaged up. Despite what the README says, I'm not ready to use. Look again on Friday.
+
 * Clojure Cheatsheet for Emacs
   
 The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.5 and
