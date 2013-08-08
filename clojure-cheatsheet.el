@@ -26,14 +26,14 @@
       ("Arithmetic"
        (clojure.core + - * / quot rem mod dec inc max min))
       ("Compare"
-       (clojure.core = == not= < > <= >= compare)) 
+       (clojure.core = == not= < > <= >= compare))
       ("Bitwise"
        (clojure.core bit-and bit-and-not bit-clear bit-flip bit-not bit-or bit-set bit-shift-left bit-shift-right bit-test bit-xor))
       ("Cast"
        (clojure.core byte short long int float double bigdec bigint biginteger num rationalize))
       ("Test"
        (clojure.core nil? identical? zero? pos? neg? even? odd?))
-      ("Random" 
+      ("Random"
        (clojure.core rand rand-int))
       ("BigDecimal"
        (clojure.core with-precision))
@@ -91,7 +91,7 @@
     ("Collections"
      ("Generic Ops"
       (clojure.core count empty not-empty into clojure.core conj))
-     ("Walking" 
+     ("Walking"
       (clojure.walk walk prewalk prewalk-demo prewalk-replace postwalk postwalk-demo postwalk-replace))
      ("Content tests"
       (clojure.core distinct? empty? every? not-every? some not-any?))
@@ -106,7 +106,7 @@
       ("Examine"
        (clojure.core first nth peek))
       ("'Change'"
-       (clojure.core cons conj rest pop)))	    
+       (clojure.core cons conj rest pop)))
 
      ("Vectors"
       ("Create"
@@ -136,13 +136,13 @@
      ("Maps"
       ("Create"
        (clojure.core hash-map array-map zipmap sorted-map sorted-map-by bean frequencies group-by))
-      ("Examine" 
+      ("Examine"
        (clojure.core get get-in contains? find keys vals))
-      ("'Change'" 
+      ("'Change'"
        (clojure.core assoc assoc-in dissoc merge merge-with select-keys update-in))
-      ("Entry" 
+      ("Entry"
        (clojure.core key val))
-      ("Sorted Maps" 
+      ("Sorted Maps"
        (clojure.core rseq subseq rsubseq)
        )))
 
@@ -338,17 +338,17 @@
        (clojure.core realized?))))
 
     ("Zippers"
-     ("Create"	
+     ("Create"
       (clojure.zip zipper seq-zip vector-zip xml-zip))
-     ("Get loc"	
+     ("Get loc"
       (clojure.zip up down left right leftmost rightmost))
-     ("Get seq"	
+     ("Get seq"
       (clojure.zip lefts rights path children))
-     ("'Change'"	
+     ("'Change'"
       (clojure.zip make-node replace edit insert-child insert-left insert-right append-child remove))
-     ("Move"	
+     ("Move"
       (clojure.zip next prev))
-     ("Misc"	
+     ("Misc"
       (clojure.zip root node branch? end?)))
 
     ("Documentation"
@@ -368,27 +368,27 @@
       (clojure.core true? false? nil? instance?)))
 
     ("IO"
-     ("to/from ..."
+     ("To/from ..."
       (clojure.core spit slurp))
-     ("to *out*"
+     ("To *out*"
       (clojure.core pr prn print printf println newline)
       (clojure.pprint print-table))
-     ("to writer"
+     ("To writer"
       (clojure.pprint pprint cl-format))
-     ("to string"
+     ("To string"
       (clojure.core format with-out-str pr-str prn-str print-str println-str))
-     ("from *in*"
+     ("From *in*"
       (clojure.core read-line read))
-     ("from reader"
-      (clojure.core line-seq read)) 
-     ("from string"
+     ("From reader"
+      (clojure.core line-seq read))
+     ("From string"
       (clojure.core read-string with-in-str))
      ("Open"
       (clojure.core with-open)
       (clojure.java.io  reader writer input-stream output-stream))
      ("Misc"
       (clojure.core flush file-seq *in* *out* *err*)
-      (clojure.java.io file copy delete-file resource as-file as-url as-relative-path))) 
+      (clojure.java.io file copy delete-file resource as-file as-url as-relative-path)))
 
     ("Special Forms"
      (clojure.core def if do let quote var fn loop recur throw try monitor-enter monitor-exit)
