@@ -466,10 +466,10 @@
 		 ("Lookup Source" . clojure-cheatsheet/lookup-src))))))
 
 (defvar helm-source-clojure-cheatsheet
- (mapcar 'clojure-cheatsheet/item-to-helm-source
-	 (clojure-cheatsheet/group-by-head
-	  (clojure-cheatsheet/flatten
-	   (clojure-cheatsheet/propagate-headings clojure-cheatsheet-hierarchy)))))
+  (mapcar 'clojure-cheatsheet/item-to-helm-source
+	  (clojure-cheatsheet/group-by-head
+	   (clojure-cheatsheet/flatten
+	    (clojure-cheatsheet/propagate-headings clojure-cheatsheet-hierarchy)))))
 
 ;;;###autoload
 (defun clojure-cheatsheet ()
