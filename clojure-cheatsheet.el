@@ -65,10 +65,10 @@
        (clojure.core str format))
       ("Use"
        (clojure.core count get subs compare)
-       (clojure.string join escape split split-lines replace replace-first reverse))
+       (clojure.string join escape split split-lines replace replace-first reverse re-quote-replacement))
       ("Regex"
-       (clojure.core re-find re-pattern)
-       (clojure.string replace replace-first))
+       (clojure.core re-find re-seq re-matches re-pattern re-matcher re-groups)
+       (clojure.string replace replace-first re-quote-replacement))
       ("Letters"
        (clojure.string capitalize lower-case upper-case))
       ("Trim"
@@ -85,7 +85,7 @@
       ("Symbols"
        (clojure.core symbol symbol? gensym))
       ("Data Readers"
-       (clojure.core *data-readers* *default-data-reader-fn*))))
+       (clojure.core *data-readers* default-data-readers *default-data-reader-fn*))))
 
     ("Collections"
      ("Generic Ops"
@@ -279,7 +279,7 @@
       ("Examine"
        (clojure.core agent-error))
       ("Change State"
-       (clojure.core send send-off restart-agent))
+       (clojure.core send send-off restart-agent send-via set-agent-send-executor! set-agent-send-off-executor!))
       ("Block Waiting"
        (clojure.core await await-for))
       ("Ref Validators"
