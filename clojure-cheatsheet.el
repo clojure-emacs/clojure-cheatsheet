@@ -407,13 +407,13 @@
   "Given a (Clojure) namespace and a symbol, fully-qualify that symbol."
   (intern (format "%s/%s" namespace symbol)))
 
-(defun clojure-cheatsheet/handle-subnode
+(defun clojure-cheatsheet/string-qualifier
   (head subnode)
   (cond
    ((symbolp (car subnode)) (cons head subnode))
    ((stringp (car subnode)) (cons (format "%s : %s" head (car subnode))
 				  (cdr subnode)))
-   (t (mapcar (apply-partially 'clojure-cheatsheet/handle-subnode head) subnode))))
+   (t (mapcar (apply-partially 'clojure-cheatsheet/string-qualifier head) subnode))))
 
 (defun clojure-cheatsheet/propagate-headings
   (node)
@@ -424,7 +424,7 @@
 	   (tail (cdr postwalk)))
       (cond
        ((symbolp head) (mapcar (apply-partially 'clojure-cheatsheet/symbol-qualifier head) tail))
-       ((stringp head) (mapcar (apply-partially 'clojure-cheatsheet/handle-subnode head) tail))
+       ((stringp head) (mapcar (apply-partially 'clojure-cheatsheet/string-qualifier head) tail))
        ((listp head) postwalk)
        (t (error "Unhandled case!"))))))
 
