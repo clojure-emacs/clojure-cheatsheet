@@ -6,7 +6,7 @@
 ;; Keywords: clojure nrepl cheatsheet helm
 ;; URL: https://github.com/krisajenkins/clojure-cheatsheet
 ;; Created: 7th August 2013
-;; Version: 0.1.0
+;; Version: 0.1.1
 ;; Package-Requires: ((helm "1.5.3") (nrepl "0.1.8"))
 
 ;;; Commentary:
