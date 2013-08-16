@@ -159,6 +159,8 @@
       (clojure.xml parse))
      ("REPL"
       (clojure.core *1 *2 *3 *e *print-dup* *print-length* *print-level* *print-meta* *print-readably*))
+     ("EDN"
+      (clojure.edn read read-string))
      ("Code"
       (clojure.core *compile-files* *compile-path* *file* *warn-on-reflection* compile gen-class gen-interface loaded-libs test))
      ("Misc"
