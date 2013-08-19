@@ -165,6 +165,8 @@
       (clojure.core *compile-files* *compile-path* *file* *warn-on-reflection* compile gen-class gen-interface loaded-libs test))
      ("Misc"
       (clojure.core eval force hash name *clojure-version* clojure-version *command-line-args*))
+     ("Pretty Printing"
+      (clojure.pprint pprint print-table pp *print-right-margin*))
      ("Browser / Shell"
       (clojure.java.browse browse-url)
       (clojure.java.shell  sh with-sh-dir with-sh-env)))
