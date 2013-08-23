@@ -351,6 +351,8 @@
       (clojure.zip make-node replace edit insert-child insert-left insert-right append-child remove))
      ("Move"
       (clojure.zip next prev))
+	 ("XML"
+	  (clojure.data.zip.xml attr attr= seq-test tag= text text= xml-> xml1->))
      ("Misc"
       (clojure.zip root node branch? end?)))
 
