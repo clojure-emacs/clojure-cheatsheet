@@ -21,7 +21,7 @@ install that in your preferred way.
    
 Call =M-x clojure-cheatsheet= and the cheatsheet will appear. Type
 in some terms (space separated) to narrow down the list. For example,
-try typing in =sort map= to some functions that deal with sorting maps.
+try typing in =sort map= to see some functions that deal with sorting maps.
 
 *** Keys
 
