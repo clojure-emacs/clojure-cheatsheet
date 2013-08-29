@@ -358,7 +358,8 @@
 
     ("Documentation"
      ("REPL"
-      (clojure.repl doc find-doc apropos source pst javadoc )))
+      (clojure.repl doc find-doc apropos source pst)
+      (clojure.java.javadoc javadoc)))
 
     ("Transients"
      ("Create")
