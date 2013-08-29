@@ -475,8 +475,8 @@
 
 (defun clojure-cheatsheet/item-to-helm-source
   (item)
-  (let ((heading (car item))
-	(symbols (cdr item)))
+  "Turn head cheatsheet ITEM into a helm-source."
+  (destructuring-bind (heading &rest symbols) item
     `((name . ,heading)
       (candidates ,@symbols)
       (match . ((lambda (candidate)
