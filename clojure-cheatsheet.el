@@ -402,6 +402,16 @@
       (clojure.core let fn defn defmacro loop for doseq if-let when-let)))
     ))
 
+;;; We could just make dash.el a dependency, but I'm not sure it's worth it for one utility macro.
+(defmacro clojure-cheatsheet/->>
+  (&rest body)
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append (if (sequencep form)
+			       form
+			     (list form))
+			   (list result))))))
+
 (defun clojure-cheatsheet/flatten
   (node)
   "Flatten NODE, which is a tree structure, into a list of its leaves."
@@ -475,10 +485,11 @@
 		 ("Lookup Source" . clojure-cheatsheet/lookup-src))))))
 
 (defvar helm-source-clojure-cheatsheet
-  (mapcar 'clojure-cheatsheet/item-to-helm-source
-	  (clojure-cheatsheet/group-by-head
-	   (clojure-cheatsheet/flatten
-	    (clojure-cheatsheet/propagate-headings clojure-cheatsheet-hierarchy)))))
+  (clojure-cheatsheet/->> clojure-cheatsheet-hierarchy
+			  clojure-cheatsheet/propagate-headings
+			  clojure-cheatsheet/flatten
+			  clojure-cheatsheet/group-by-head
+			  (mapcar 'clojure-cheatsheet/item-to-helm-source)))
 
 ;;;###autoload
 (defun clojure-cheatsheet ()
