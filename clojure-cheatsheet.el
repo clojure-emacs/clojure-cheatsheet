@@ -17,7 +17,7 @@
 (require 'helm-match-plugin)
 (require 'nrepl)
 
-;;; Code
+;;; Code:
 
 (defvar clojure-cheatsheet-hierarchy
   '(("Primitives"
@@ -404,6 +404,7 @@
 
 (defun clojure-cheatsheet/flatten
   (node)
+  "Flatten NODE, which is a tree structure, into a list of its leaves."
   (cond
    ((not (listp node)) node)
    ((listp (car node)) (apply 'append (mapcar 'clojure-cheatsheet/flatten node)))
@@ -437,6 +438,7 @@
 
 (defun clojure-cheatsheet/group-by-head
   (data)
+  "Group the DATA, which should be a list of lists, but the car of each list."
   (let ((result '()))
     (mapcar (lambda (item)
   	      (let* ((head (car item))
