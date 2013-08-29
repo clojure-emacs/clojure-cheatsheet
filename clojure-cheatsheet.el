@@ -450,16 +450,14 @@
   (data)
   "Group the DATA, which should be a list of lists, but the car of each list."
   (let ((result '()))
-    (mapcar (lambda (item)
-  	      (let* ((head (car item))
-  		     (tail (cdr item))
-  		     (current (cdr (assoc head result))))
-  		(if current
-  		    (setf (cdr (assoc head result))
-			  (append current tail))
-  		  (setq result (append result (list item))))))
-	    data)
-    result))
+    (dolist (item data result)
+      (let* ((head (car item))
+	     (tail (cdr item))
+	     (current (cdr (assoc head result))))
+	(if current
+	    (setf (cdr (assoc head result))
+		  (append current tail))
+	  (setq result (append result (list item))))))))
 
 (defun clojure-cheatsheet/lookup-doc
   (symbol)
