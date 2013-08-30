@@ -412,6 +412,19 @@
 			     (list form))
 			   (list result))))))
 
+(defun clojure-cheatsheet/treewalk
+  (before after node)
+  "Walk a tree.  Invoke BEFORE before the walk, and AFTER after it, on each NODE."
+  (clojure-cheatsheet/->> node
+			  (funcall before)
+			  ((lambda (new-node)
+			     (if (listp new-node)
+				 (mapcar (lambda (child)
+					   (clojure-cheatsheet/treewalk before after child))
+					 new-node)
+			       new-node)))
+			  (funcall after)))
+
 (defun clojure-cheatsheet/flatten
   (node)
   "Flatten NODE, which is a tree structure, into a list of its leaves."
@@ -435,16 +448,16 @@
 
 (defun clojure-cheatsheet/propagate-headings
   (node)
-  (if (not (listp node))
-      node
-    (let* ((postwalk (mapcar 'clojure-cheatsheet/propagate-headings node))
-	   (head (car postwalk))
-	   (tail (cdr postwalk)))
-      (cond
-       ((symbolp head) (mapcar (apply-partially 'clojure-cheatsheet/symbol-qualifier head) tail))
-       ((stringp head) (mapcar (apply-partially 'clojure-cheatsheet/string-qualifier head) tail))
-       ((listp head) postwalk)
-       (t (error "Unhandled case!"))))))
+  (clojure-cheatsheet/treewalk
+   #'identity
+   (lambda (item)
+     (if (listp item)
+	 (destructuring-bind (head &rest tail) item
+	   (cond ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
+		 ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
+		 (t item)))
+       item))
+   node))
 
 (defun clojure-cheatsheet/group-by-head
   (data)
