@@ -112,7 +112,7 @@
        (clojure.core vec vector vector-of))
       ("Examine"
        (clojure.core get peek))
-      
+
       ("'Change'"
        (clojure.core assoc pop subvec replace conj rseq))
       ("Ops"
@@ -399,8 +399,17 @@
     ("Special Forms"
      (clojure.core def if do let quote var fn loop recur throw try monitor-enter monitor-exit)
      ("Binding / Destructuring"
-      (clojure.core let fn defn defmacro loop for doseq if-let when-let)))
-    ))
+      (clojure.core let fn defn defmacro loop for doseq if-let when-let))))
+  "A data structure designed for the editor's convenience, which we
+transform into the format that helm requires.
+
+It's a tree, where the head of each list determines the context of the rest of the list.
+The head may be:
+
+  A string, in which case it's a (sub)heading for the rest of the items.
+  A symbol, in which case it's the Clojure namespace of the symbols that follow it.
+  A keyword, in which case it's a typed item that will be passed
+    through and handled in `clojure-cheatsheet/item-to-helm-source'.")
 
 ;;; We could just make dash.el a dependency, but I'm not sure it's worth it for one utility macro.
 (defmacro clojure-cheatsheet/->>
@@ -425,14 +434,6 @@
 			       new-node)))
 			  (funcall after)))
 
-(defun clojure-cheatsheet/flatten
-  (node)
-  "Flatten NODE, which is a tree structure, into a list of its leaves."
-  (cond
-   ((not (listp node)) node)
-   ((listp (car node)) (apply 'append (mapcar 'clojure-cheatsheet/flatten node)))
-   (t (list (mapcar 'clojure-cheatsheet/flatten node)))))
-
 (defun clojure-cheatsheet/symbol-qualifier
   (namespace symbol)
   "Given a (Clojure) namespace and a symbol, fully-qualify that symbol."
@@ -441,6 +442,7 @@
 (defun clojure-cheatsheet/string-qualifier
   (head subnode)
   (cond
+   ((keywordp (car subnode)) (list head subnode))
    ((symbolp (car subnode)) (cons head subnode))
    ((stringp (car subnode)) (cons (format "%s : %s" head (car subnode))
 				  (cdr subnode)))
@@ -453,11 +455,21 @@
    (lambda (item)
      (if (listp item)
 	 (destructuring-bind (head &rest tail) item
-	   (cond ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
+	   (cond ((keywordp head) item)
+		 ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
 		 ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
 		 (t item)))
        item))
    node))
+
+(defun clojure-cheatsheet/flatten
+  (node)
+  "Flatten NODE, which is a tree structure, into a list of its leaves."
+  (cond
+   ((not (listp node)) node)
+   ((keywordp (car node)) node)
+   ((listp (car node)) (apply 'append (mapcar 'clojure-cheatsheet/flatten node)))
+   (t (list (mapcar 'clojure-cheatsheet/flatten node)))))
 
 (defun clojure-cheatsheet/group-by-head
   (data)
@@ -487,13 +499,25 @@
 (defun clojure-cheatsheet/item-to-helm-source
   (item)
   "Turn head cheatsheet ITEM into a helm-source."
-  (destructuring-bind (heading &rest symbols) item
+  (destructuring-bind (heading &rest entries) item
     `((name . ,heading)
-      (candidates ,@symbols)
+      (candidates ,@(mapcar (lambda (item)
+			      (if (and (listp item)
+				       (keywordp (car item)))
+				  (destructuring-bind (kind title value) item
+				    (cons title
+					  (list kind value)))
+				item))
+			    entries))
       (match . ((lambda (candidate)
 		  (helm-mp-3-match (format "%s %s" candidate ,heading)))))
-      (action . (("Lookup Docs" . clojure-cheatsheet/lookup-doc)
-		 ("Lookup Source" . clojure-cheatsheet/lookup-src))))))
+      (action-transformer (lambda (action-list current-selection)
+			    (if (and (listp current-selection)
+				     (eq (car current-selection) :url))
+				'(("Browse" . (lambda (item)
+						(helm-browse-url (cadr item)))))
+			      '(("Lookup Docs" . clojure-cheatsheet/lookup-doc)
+				("Lookup Source" . clojure-cheatsheet/lookup-src))))))))
 
 (defvar helm-source-clojure-cheatsheet
   (clojure-cheatsheet/->> clojure-cheatsheet-hierarchy
