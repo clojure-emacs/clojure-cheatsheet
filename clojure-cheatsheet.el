@@ -161,7 +161,8 @@
       (clojure.core *1 *2 *3 *e *print-dup* *print-length* *print-level* *print-meta* *print-readably*))
      ("EDN"
       (clojure.edn read read-string))
-     ("Code"
+     ("Compiling Code & Class Generation"
+      (:url "Documentation" "http://clojure.org/compilation")
       (clojure.core *compile-files* *compile-path* *file* *warn-on-reflection* compile gen-class gen-interface loaded-libs test))
      ("Misc"
       (clojure.core eval force hash name *clojure-version* clojure-version *command-line-args*))
@@ -172,6 +173,7 @@
       (clojure.java.shell  sh with-sh-dir with-sh-env)))
 
     ("Vars & Global Environment"
+     (:url "Documentation" "http://clojure.org/vars")
      ("Def Variants"
       (clojure.core def defn defn- definline defmacro defmethod defmulti defonce defrecord))
      ("Interned Vars"
@@ -183,12 +185,14 @@
 
     ("Abstractions"
      ("Protocols"
+      (:url "Documentation" "http://clojure.org/protocols")
       (clojure.core defprotocol extend-type reify))
      ("Records"
       (clojure.core defrecord))
      ("Types"
       (clojure.core deftype))
      ("Multimethods"
+      (:url "Documentation" "http://clojure.org/multimethods")
       ("Define"
        (clojure.core defmulti defmethod))
       ("Dispatch"
@@ -201,6 +205,7 @@
        (clojure.core derive isa? parents ancestors descendants make-hierarchy))))
 
     ("Macros"
+     (:url "Documentation" "http://clojure.org/macros")
      ("Create"
       (clojure.core defmacro definline))
      ("Debug"
@@ -221,6 +226,7 @@
       (clojure.core assert comment doc)))
 
     ("Java Interop"
+     (:url "Documentation" "http://clojure.org/java_interop")
      ("General"
       (clojure.core .. doto new bean comparator enumeration-seq import iterator-seq memfn set!))
      ("Cast"
@@ -228,8 +234,8 @@
      ("Exceptions"
       (clojure.core throw try catch finally pst ex-info ex-data)))
 
-    
-    ("Namespace"
+    ("Namespaces"
+     (:url "Documentation" "http://clojure.org/namespaces")
      ("Current"
       (clojure.core *ns*))
      ("Create Switch"
@@ -253,6 +259,7 @@
       (clojure.core load load-file load-reader load-string)))
 
     ("Concurrency"
+     (:url "Documentation" "http://clojure.org/atoms")
      ("Atoms"
       (clojure.core atom swap! reset! compare-and-set!))
      ("Futures"
@@ -264,6 +271,7 @@
       (clojure.core locking pcalls pvalues pmap seque promise deliver))
 
      ("Refs & Transactions"
+      (:url "Documentation" "http://clojure.org/refs")
       ("Create"
        (clojure.core ref))
       ("Examine"
@@ -278,6 +286,7 @@
        (clojure.core ref-history-count ref-max-history ref-min-history)))
 
      ("Agents & Asynchronous Actions"
+      (:url "Documentation" "http://clojure.org/agents")
       ("Create"
        (clojure.core agent))
       ("Examine"
@@ -362,6 +371,7 @@
       (clojure.java.javadoc javadoc)))
 
     ("Transients"
+     (:url "Documentation" "http://clojure.org/transients")
      ("Create")
      (clojure.core transient persistent!)
      ("Change")
@@ -397,6 +407,7 @@
       (clojure.java.io file copy delete-file resource as-file as-url as-relative-path)))
 
     ("Special Forms"
+     (:url "Documentation" "http://clojure.org/special_forms")
      (clojure.core def if do let quote var fn loop recur throw try monitor-enter monitor-exit)
      ("Binding / Destructuring"
       (clojure.core let fn defn defmacro loop for doseq if-let when-let))))
