@@ -509,7 +509,7 @@ The head may be:
 
 (defun clojure-cheatsheet/item-to-helm-source
   (item)
-  "Turn head cheatsheet ITEM into a helm-source."
+  "Turn ITEM, which will be (\"HEADING\" candidates...), into a helm-source."
   (destructuring-bind (heading &rest entries) item
     `((name . ,heading)
       (candidates ,@(mapcar (lambda (item)
