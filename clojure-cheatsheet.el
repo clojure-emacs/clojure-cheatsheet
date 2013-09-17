@@ -187,10 +187,9 @@
      ("Protocols"
       (:url "Documentation" "http://clojure.org/protocols")
       (clojure.core defprotocol extend-type reify))
-     ("Records"
-      (clojure.core defrecord))
-     ("Types"
-      (clojure.core deftype))
+     ("Records & Types"
+      (:url "Documentation" "http://clojure.org/datatypes")
+      (clojure.core defrecord deftype))
      ("Multimethods"
       (:url "Documentation" "http://clojure.org/multimethods")
       ("Define"
