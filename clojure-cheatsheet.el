@@ -410,7 +410,7 @@
      (:url "Documentation" "http://clojure.org/special_forms")
      (clojure.core def if do let quote var fn loop recur throw try monitor-enter monitor-exit)
      ("Binding / Destructuring"
-      (clojure.core let fn defn defmacro loop for doseq if-let when-let))))
+      (clojure.core let fn letfn defn defmacro loop for doseq if-let when-let))))
   "A data structure designed for the editor's convenience, which we
 transform into the format that helm requires.
 
