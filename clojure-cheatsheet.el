@@ -410,7 +410,7 @@
      (clojure.core def if do let quote var fn loop recur throw try monitor-enter monitor-exit)
      ("Binding / Destructuring"
       (clojure.core let fn letfn defn defmacro loop for doseq if-let when-let))))
-  "A data structure designed for the editor's convenience, which we
+  "A data structure designed for the maintainer's convenience, which we
 transform into the format that helm requires.
 
 It's a tree, where the head of each list determines the context of the rest of the list.
@@ -483,7 +483,7 @@ The head may be:
 
 (defun clojure-cheatsheet/group-by-head
   (data)
-  "Group the DATA, which should be a list of lists, but the car of each list."
+  "Group the DATA, which should be a list of lists, by the head of each list."
   (let ((result '()))
     (dolist (item data result)
       (let* ((head (car item))
