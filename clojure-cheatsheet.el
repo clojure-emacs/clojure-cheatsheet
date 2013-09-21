@@ -67,6 +67,7 @@
        (clojure.core count get subs compare)
        (clojure.string join escape split split-lines replace replace-first reverse re-quote-replacement))
       ("Regex"
+       (:url "Java's Regex Syntax" "http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html")
        (clojure.core re-find re-seq re-matches re-pattern re-matcher re-groups)
        (clojure.string replace replace-first re-quote-replacement))
       ("Letters"
