@@ -1,4 +1,4 @@
-;;; clojure-cheatsheet.el --- The Clojure Cheatsheet in Emacs
+;;; clojure-cheatsheet.el --- The Clojure Cheatsheet for Emacs
 ;; Copyright 2013 Kris Jenkins
 
 ;; Author: Kris Jenkins <krisajenkins@gmail.com>
@@ -11,7 +11,7 @@
 
 ;;; Commentary:
 ;;
-;; The Clojure Cheatsheet in Emacs.
+;; The Clojure Cheatsheet for Emacs.
 
 (require 'helm)
 (require 'helm-match-plugin)
