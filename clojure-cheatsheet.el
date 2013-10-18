@@ -7,7 +7,7 @@
 ;; URL: https://github.com/krisajenkins/clojure-cheatsheet
 ;; Created: 7th August 2013
 ;; Version: 0.1.1
-;; Package-Requires: ((helm "1.5.3") (nrepl "0.1.8"))
+;; Package-Requires: ((helm "1.5.3") (cider "0.1.8"))
 
 ;;; Commentary:
 ;;
@@ -15,7 +15,7 @@
 
 (require 'helm)
 (require 'helm-match-plugin)
-(require 'nrepl)
+(require 'nrepl-client)
 
 ;;; Code:
 
