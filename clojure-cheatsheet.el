@@ -7,7 +7,7 @@
 ;; URL: https://github.com/krisajenkins/clojure-cheatsheet
 ;; Created: 7th August 2013
 ;; Version: 0.1.1
-;; Package-Requires: ((helm "1.5.3") (nrepl "0.1.8"))
+;; Package-Requires: ((helm "1.5.3") (cider "0.1.8"))
 
 ;;; Commentary:
 ;;
@@ -15,7 +15,8 @@
 
 (require 'helm)
 (require 'helm-match-plugin)
-(require 'nrepl)
+(require 'nrepl-client)
+(require 'cider-interaction)
 
 ;;; Code:
 
@@ -498,13 +499,13 @@ The head may be:
 (defun clojure-cheatsheet/lookup-doc
   (symbol)
   (if (nrepl-current-connection-buffer)
-      (nrepl-doc-handler symbol)
+      (cider-doc-handler symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/lookup-src
   (symbol)
   (if (nrepl-current-connection-buffer)
-      (nrepl-src-handler symbol)
+      (cider-src-handler symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/item-to-helm-source
