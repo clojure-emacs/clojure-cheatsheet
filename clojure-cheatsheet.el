@@ -91,7 +91,7 @@
 
     ("Collections"
      ("Generic Ops"
-      (clojure.core count empty not-empty into clojure.core conj))
+      (clojure.core count empty not-empty into conj))
      ("Walking"
       (clojure.walk walk prewalk prewalk-demo prewalk-replace postwalk postwalk-demo postwalk-replace))
      ("Content tests"
