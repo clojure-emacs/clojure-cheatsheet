@@ -210,7 +210,7 @@
      ("Create"
       (clojure.core defmacro definline))
      ("Debug"
-      (clojure.coremacroexpand-1 macroexpand)
+      (clojure.core macroexpand-1 macroexpand)
       (clojure.walk macroexpand-all))
      ("Branch"
       (clojure.core and or when when-not when-let when-first if-not if-let cond condp case))
