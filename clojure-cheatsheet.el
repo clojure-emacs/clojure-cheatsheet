@@ -37,6 +37,8 @@
        (clojure.core rand rand-int))
       ("BigDecimal"
        (clojure.core with-precision))
+      ("Arbitrary Precision Arithmetic"
+       (clojure.core +\' -\' *\' inc\' dec\'))
       ("Unchecked"
        (clojure.core *unchecked-math*
 		     unchecked-add
