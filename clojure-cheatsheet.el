@@ -224,7 +224,8 @@
      ("Lazy"
       (clojure.core lazy-cat lazy-seq delay))
      ("Doc."
-      (clojure.core assert comment doc)))
+      (clojure.core assert comment)
+      (clojure.repl doc)))
 
     ("Java Interop"
      (:url "Documentation" "http://clojure.org/java_interop")
@@ -233,7 +234,8 @@
      ("Cast"
       (clojure.core boolean byte short char int long float double bigdec bigint num cast biginteger))
      ("Exceptions"
-      (clojure.core throw try catch finally pst ex-info ex-data)))
+      (clojure.core throw try catch finally ex-info ex-data)
+      (clojure.repl pst)))
 
     ("Namespaces"
      (:url "Documentation" "http://clojure.org/namespaces")
