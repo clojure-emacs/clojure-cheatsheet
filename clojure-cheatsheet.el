@@ -424,7 +424,8 @@ The head may be:
 
   A string, in which case it's a (sub)heading for the rest of the items.
   A symbol, in which case it's the Clojure namespace of the symbols that follow it.
-  A keyword, in which case it's a typed item that will be passed
+  The keyword :special, in which case it's a Clojure special form - a symbol with no
+  Any other keyword, in which case it's a typed item that will be passed
     through and handled in `clojure-cheatsheet/item-to-helm-source'.")
 
 ;;; We could just make dash.el a dependency, but I'm not sure it's worth it for one utility macro.
@@ -471,7 +472,8 @@ The head may be:
    (lambda (item)
      (if (listp item)
 	 (destructuring-bind (head &rest tail) item
-	   (cond ((keywordp head) item)
+	   (cond ((equal :special head) tail)
+		 ((keywordp head) item)
 		 ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
 		 ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
 		 (t item)))
