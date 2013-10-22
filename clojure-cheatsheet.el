@@ -179,9 +179,11 @@
     ("Vars & Global Environment"
      (:url "Documentation" "http://clojure.org/vars")
      ("Def Variants"
-      (clojure.core def defn defn- definline defmacro defmethod defmulti defonce defrecord))
+      (:special def)
+      (clojure.core defn defn- definline defmacro defmethod defmulti defonce defrecord))
      ("Interned Vars"
-      (clojure.core declare intern binding find-var var))
+      (:special var)
+      (clojure.core declare intern binding find-var))
      ("Var Objects"
       (clojure.core with-local-vars var-get var-set alter-var-root var?))
      ("Var Validators"
@@ -232,11 +234,13 @@
     ("Java Interop"
      (:url "Documentation" "http://clojure.org/java_interop")
      ("General"
-      (clojure.core .. doto new bean comparator enumeration-seq import iterator-seq memfn set!))
+      (:special new set!)
+      (clojure.core .. doto bean comparator enumeration-seq import iterator-seq memfn))
      ("Cast"
       (clojure.core boolean byte short char int long float double bigdec bigint num cast biginteger))
      ("Exceptions"
-      (clojure.core throw try catch finally ex-info ex-data)
+      (:special throw try catch finally)
+      (clojure.core ex-info ex-data)
       (clojure.repl pst)))
 
     ("Namespaces"
@@ -413,7 +417,8 @@
 
     ("Special Forms"
      (:url "Documentation" "http://clojure.org/special_forms")
-     (clojure.core def if do let quote var fn loop recur throw try monitor-enter monitor-exit)
+     (:special def if do quote var recur throw try monitor-enter monitor-exit)
+     (clojure.core fn loop)
      ("Binding / Destructuring"
       (clojure.core let fn letfn defn defmacro loop for doseq if-let when-let))))
   "A data structure designed for the maintainer's convenience, which we
