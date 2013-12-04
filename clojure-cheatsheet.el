@@ -151,7 +151,7 @@
 
     ("Functions"
      ("Create"
-      (clojure.core fn defn defn- definline identity constantly comp complement partial juxt memfn memoize fnil every-pred some-fn))
+      (clojure.core fn defn defn- definline identity constantly comp complement partial juxt memfn memoize fnil every-pred some-fn trampoline))
      ("Call"
       (clojure.core -> ->> some-> some->> as-> cond-> cond->>))
      ("Test"
