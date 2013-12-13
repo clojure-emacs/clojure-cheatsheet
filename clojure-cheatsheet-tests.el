@@ -91,13 +91,12 @@
 						  (apply #'append)
 						  -uniq))
 
-
 (defun require-namespace
   (namespace)
   (cider-eval-sync (format "(require '%s)" namespace)))
 
 (defun check-symbol-bound
-  (symbol) 
+  (symbol)
   (let ((var (cider-eval-sync (format "(var %s)" symbol))))
 	(should     (plist-get var :value))
 	(should-not (plist-get var :stderr))) )
@@ -107,7 +106,7 @@
 
   (mapc #'require-namespace
 		(all-namespaces))
-  
+
   (mapc #'check-symbol-bound
 		(all-symbols-qualified)))
 

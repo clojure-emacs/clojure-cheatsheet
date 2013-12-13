@@ -120,8 +120,8 @@
       ("'Change'"
        (clojure.core assoc pop subvec replace conj rseq))
       ("Ops"
-       (clojure.core mapv filterv reduce-kv)
-       ))
+       (clojure.core mapv filterv reduce-kv)))
+
      ("Sets"
       ("Create"
        (clojure.core set hash-set sorted-set sorted-set-by))
@@ -146,8 +146,7 @@
       ("Entry"
        (clojure.core key val))
       ("Sorted Maps"
-       (clojure.core rseq subseq rsubseq)
-       )))
+       (clojure.core rseq subseq rsubseq))))
 
     ("Functions"
      ("Create"
