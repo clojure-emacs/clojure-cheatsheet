@@ -41,27 +41,27 @@
        (clojure.core +\' -\' *\' inc\' dec\'))
       ("Unchecked"
        (clojure.core *unchecked-math*
-		     unchecked-add
-		     unchecked-add-int
-		     unchecked-byte
-		     unchecked-char
-		     unchecked-dec
-		     unchecked-dec-int
-		     unchecked-divide-int
-		     unchecked-double
-		     unchecked-float
-		     unchecked-inc
-		     unchecked-inc-int
-		     unchecked-int
-		     unchecked-long
-		     unchecked-multiply
-		     unchecked-multiply-int
-		     unchecked-negate
-		     unchecked-negate-int
-		     unchecked-remainder-int
-		     unchecked-short
-		     unchecked-subtract
-		     unchecked-subtract-int)))
+					 unchecked-add
+					 unchecked-add-int
+					 unchecked-byte
+					 unchecked-char
+					 unchecked-dec
+					 unchecked-dec-int
+					 unchecked-divide-int
+					 unchecked-double
+					 unchecked-float
+					 unchecked-inc
+					 unchecked-inc-int
+					 unchecked-int
+					 unchecked-long
+					 unchecked-multiply
+					 unchecked-multiply-int
+					 unchecked-negate
+					 unchecked-negate-int
+					 unchecked-remainder-int
+					 unchecked-short
+					 unchecked-subtract
+					 unchecked-subtract-int)))
 
      ("Strings"
       ("Create"
@@ -439,22 +439,22 @@ The head may be:
   (let ((result (pop body)))
     (dolist (form body result)
       (setq result (append (if (sequencep form)
-			       form
-			     (list form))
-			   (list result))))))
+							 form
+							 (list form))
+						   (list result))))))
 
 (defun clojure-cheatsheet/treewalk
   (before after node)
   "Walk a tree.  Invoke BEFORE before the walk, and AFTER after it, on each NODE."
   (clojure-cheatsheet/->> node
-			  (funcall before)
-			  ((lambda (new-node)
-			     (if (listp new-node)
-				 (mapcar (lambda (child)
-					   (clojure-cheatsheet/treewalk before after child))
-					 new-node)
-			       new-node)))
-			  (funcall after)))
+						  (funcall before)
+						  ((lambda (new-node)
+							 (if (listp new-node)
+							   (mapcar (lambda (child)
+										 (clojure-cheatsheet/treewalk before after child))
+									   new-node)
+							   new-node)))
+						  (funcall after)))
 
 (defun clojure-cheatsheet/symbol-qualifier
   (namespace symbol)
@@ -467,7 +467,7 @@ The head may be:
    ((keywordp (car subnode)) (list head subnode))
    ((symbolp (car subnode)) (cons head subnode))
    ((stringp (car subnode)) (cons (format "%s : %s" head (car subnode))
-				  (cdr subnode)))
+								  (cdr subnode)))
    (t (mapcar (apply-partially 'clojure-cheatsheet/string-qualifier head) subnode))))
 
 (defun clojure-cheatsheet/propagate-headings
@@ -476,12 +476,12 @@ The head may be:
    #'identity
    (lambda (item)
      (if (listp item)
-	 (destructuring-bind (head &rest tail) item
-	   (cond ((equal :special head) tail)
-		 ((keywordp head) item)
-		 ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
-		 ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
-		 (t item)))
+	   (destructuring-bind (head &rest tail) item
+		 (cond ((equal :special head) tail)
+			   ((keywordp head) item)
+			   ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
+			   ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
+			   (t item)))
        item))
    node))
 
@@ -500,23 +500,23 @@ The head may be:
   (let ((result '()))
     (dolist (item data result)
       (let* ((head (car item))
-	     (tail (cdr item))
-	     (current (cdr (assoc head result))))
-	(if current
-	    (setf (cdr (assoc head result))
-		  (append current tail))
-	  (setq result (append result (list item))))))))
+			 (tail (cdr item))
+			 (current (cdr (assoc head result))))
+		(if current
+		  (setf (cdr (assoc head result))
+				(append current tail))
+		  (setq result (append result (list item))))))))
 
 (defun clojure-cheatsheet/lookup-doc
   (symbol)
   (if (nrepl-current-connection-buffer)
-      (cider-doc-handler symbol)
+	(cider-doc-handler symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/lookup-src
   (symbol)
   (if (nrepl-current-connection-buffer)
-      (cider-src-handler symbol)
+	(cider-src-handler symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/item-to-helm-source
@@ -525,29 +525,29 @@ The head may be:
   (destructuring-bind (heading &rest entries) item
     `((name . ,heading)
       (candidates ,@(mapcar (lambda (item)
-			      (if (and (listp item)
-				       (keywordp (car item)))
-				  (destructuring-bind (kind title value) item
-				    (cons title
-					  (list kind value)))
-				item))
-			    entries))
+							  (if (and (listp item)
+									   (keywordp (car item)))
+								(destructuring-bind (kind title value) item
+								  (cons title
+										(list kind value)))
+								item))
+							entries))
       (match . ((lambda (candidate)
-		  (helm-mp-3-match (format "%s %s" candidate ,heading)))))
+				  (helm-mp-3-match (format "%s %s" candidate ,heading)))))
       (action-transformer (lambda (action-list current-selection)
-			    (if (and (listp current-selection)
-				     (eq (car current-selection) :url))
-				'(("Browse" . (lambda (item)
-						(helm-browse-url (cadr item)))))
-			      '(("Lookup Docs" . clojure-cheatsheet/lookup-doc)
-				("Lookup Source" . clojure-cheatsheet/lookup-src))))))))
+							(if (and (listp current-selection)
+									 (eq (car current-selection) :url))
+							  '(("Browse" . (lambda (item)
+											  (helm-browse-url (cadr item)))))
+							  '(("Lookup Docs" . clojure-cheatsheet/lookup-doc)
+								("Lookup Source" . clojure-cheatsheet/lookup-src))))))))
 
 (defvar helm-source-clojure-cheatsheet
   (clojure-cheatsheet/->> clojure-cheatsheet-hierarchy
-			  clojure-cheatsheet/propagate-headings
-			  clojure-cheatsheet/flatten
-			  clojure-cheatsheet/group-by-head
-			  (mapcar 'clojure-cheatsheet/item-to-helm-source)))
+						  clojure-cheatsheet/propagate-headings
+						  clojure-cheatsheet/flatten
+						  clojure-cheatsheet/group-by-head
+						  (mapcar 'clojure-cheatsheet/item-to-helm-source)))
 
 ;;;###autoload
 (defun clojure-cheatsheet ()
