@@ -192,7 +192,7 @@
     ("Abstractions"
      ("Protocols"
       (:url "Documentation" "http://clojure.org/protocols")
-      (clojure.core defprotocol extend-type reify))
+      (clojure.core defprotocol extend extend-type extend-protocol reify extends? satisfies? extenders))
      ("Records & Types"
       (:url "Documentation" "http://clojure.org/datatypes")
       (clojure.core defrecord deftype))
