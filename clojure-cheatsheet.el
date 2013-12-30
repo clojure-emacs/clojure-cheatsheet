@@ -453,7 +453,7 @@ The head may be:
   (let ((result (pop body)))
     (dolist (form body result)
       (setq result (append (if (sequencep form)
-							 form
+							   form
 							 (list form))
 						   (list result))))))
 
@@ -464,9 +464,9 @@ The head may be:
 						  (funcall before)
 						  ((lambda (new-node)
 							 (if (listp new-node)
-							   (mapcar (lambda (child)
-										 (clojure-cheatsheet/treewalk before after child))
-									   new-node)
+								 (mapcar (lambda (child)
+										   (clojure-cheatsheet/treewalk before after child))
+										 new-node)
 							   new-node)))
 						  (funcall after)))
 
@@ -490,12 +490,12 @@ The head may be:
    #'identity
    (lambda (item)
      (if (listp item)
-	   (destructuring-bind (head &rest tail) item
-		 (cond ((equal :special head) tail)
-			   ((keywordp head) item)
-			   ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
-			   ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
-			   (t item)))
+		 (destructuring-bind (head &rest tail) item
+		   (cond ((equal :special head) tail)
+				 ((keywordp head) item)
+				 ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
+				 ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
+				 (t item)))
        item))
    node))
 
@@ -517,20 +517,20 @@ The head may be:
 			 (tail (cdr item))
 			 (current (cdr (assoc head result))))
 		(if current
-		  (setf (cdr (assoc head result))
-				(append current tail))
+			(setf (cdr (assoc head result))
+				  (append current tail))
 		  (setq result (append result (list item))))))))
 
 (defun clojure-cheatsheet/lookup-doc
   (symbol)
   (if (nrepl-current-connection-buffer)
-	(cider-doc-handler symbol)
+	  (cider-doc-handler symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/lookup-src
   (symbol)
   (if (nrepl-current-connection-buffer)
-	(cider-src-handler symbol)
+	  (cider-src-handler symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/item-to-helm-source
@@ -541,9 +541,9 @@ The head may be:
       (candidates ,@(mapcar (lambda (item)
 							  (if (and (listp item)
 									   (keywordp (car item)))
-								(destructuring-bind (kind title value) item
-								  (cons title
-										(list kind value)))
+								  (destructuring-bind (kind title value) item
+									(cons title
+										  (list kind value)))
 								item))
 							entries))
       (match . ((lambda (candidate)
@@ -551,8 +551,8 @@ The head may be:
       (action-transformer (lambda (action-list current-selection)
 							(if (and (listp current-selection)
 									 (eq (car current-selection) :url))
-							  '(("Browse" . (lambda (item)
-											  (helm-browse-url (cadr item)))))
+								'(("Browse" . (lambda (item)
+												(helm-browse-url (cadr item)))))
 							  '(("Lookup Docs" . clojure-cheatsheet/lookup-doc)
 								("Lookup Source" . clojure-cheatsheet/lookup-src))))))))
 
