@@ -5,6 +5,7 @@
 ;; The Clojure Cheatsheet for Emacs tests.
 
 (require 'ert)
+(require 'cl-lib)
 (require 'cider-interaction)
 (require 'nrepl-client)
 (require 'dash)
@@ -76,7 +77,7 @@
 			(cdr node))
     node))
 
-(defun all-symbols-qualified ()
+(defun all-cheatsheet-symbols-qualified ()
   (clojure-cheatsheet/->> clojure-cheatsheet-hierarchy
 						  (clojure-cheatsheet/treewalk #'strip-all-but-namespace-lists
 													   #'qualify-all-symbols)
@@ -106,13 +107,162 @@
 	(should-not (plist-get var :stderr))) )
 
 (ert-deftest test-clojure-function-references ()
+  "Ensure that every function we've defined can actually be found at the REPL."
+
   (should (nrepl-current-connection-buffer))
 
   (mapc #'require-namespace
 		(all-namespaces))
 
   (mapc #'check-symbol-bound
-		(all-symbols-qualified)))
+		(all-cheatsheet-symbols-qualified)))
+
+
+(defun all-cider-symbols-qualified ()
+  (apply 'append
+		 (mapcar (lambda (namespace)
+				   (let* ((dir (cider-eval-sync (format "(clojure.repl/dir %s)" namespace)))
+						  (symbols (plist-get dir :stdout))
+						  (qualified-symbols (mapcar (lambda (symbol)
+													   (clojure-cheatsheet/symbol-qualifier namespace symbol))
+													 (split-string symbols "\n" t))))
+					 qualified-symbols))
+				 (all-namespaces))))
+
+(ert-deftest test-all-symbols-accounted-for ()
+  "Checks that, for every namespace the cheatsheet covers, it covers every var in that namespace.
+eg. If the cheatsheet covers clojure.repl, it should have an entry for everything in clojure.repl."
+
+  (let ((ignorable '(clojure.java.io/IOFactory
+					 clojure.core/*allow-unresolved-vars*
+					 clojure.core/*assert*
+					 clojure.core/*compiler-options*
+					 clojure.core/*flush-on-newline*
+					 clojure.core/*fn-loader*
+					 clojure.core/*math-context*
+					 clojure.core/*read-eval*
+					 clojure.core/*source-path*
+					 clojure.core/*use-context-classloader*
+					 clojure.core/*verbose-defrecords*
+					 clojure.core/->ArrayChunk
+					 clojure.core/->Vec
+					 clojure.core/->VecNode
+					 clojure.core/->VecSeq
+					 clojure.core/-cache-protocol-fn
+					 clojure.core/-reset-methods
+					 clojure.core/EMPTY-NODE
+					 clojure.core/accessor
+					 clojure.core/add-classpath
+					 clojure.core/defstruct
+					 clojure.core/agent-errors
+					 clojure.core/clear-agent-errors
+					 clojure.data/diff-similar
+					 clojure.data/equality-partition
+					 clojure.data/Diff
+					 clojure.data/EqualityPartition
+					 clojure.core/chunk
+					 clojure.core/chunk-append
+					 clojure.core/chunk-buffer
+					 clojure.core/chunk-cons
+					 clojure.core/chunk-first
+					 clojure.core/chunk-next
+					 clojure.core/chunk-rest
+					 clojure.core/replicate
+					 clojure.core/destructure))
+
+		(unfiled '(clojure.core/await1
+				   clojure.repl/set-break-handler!
+				   clojure.core/bound?
+
+				   clojure.core/construct-proxy
+				   clojure.core/create-struct
+				   clojure.core/find-protocol-impl
+				   clojure.core/find-protocol-method
+				   clojure.core/get-proxy-class
+				   clojure.core/hash-combine
+				   clojure.core/init-proxy
+				   clojure.core/method-sig
+				   clojure.core/munge
+				   clojure.core/namespace-munge
+				   clojure.core/primitives-classnames
+				   clojure.core/print-ctor
+				   clojure.core/print-dup
+				   clojure.core/print-method
+				   clojure.core/print-simple
+				   clojure.core/proxy
+				   clojure.core/proxy-call-with-super
+				   clojure.core/proxy-mappings
+				   clojure.core/proxy-name
+				   clojure.core/proxy-super
+				   clojure.core/reduced
+				   clojure.core/reset-meta
+				   clojure.core/struct
+				   clojure.core/struct-map
+				   clojure.core/thread-bound?
+				   clojure.core/underive
+				   clojure.core/unquote
+				   clojure.core/unquote-splicing
+				   clojure.core/update-proxy
+				   clojure.core/with-bindings
+				   clojure.core/with-bindings*
+				   clojure.core/with-loading-context
+				   clojure.xml/*current*
+				   clojure.xml/*sb*
+				   clojure.xml/*stack*
+				   clojure.xml/*state*
+				   clojure.xml/attrs
+				   clojure.xml/content
+				   clojure.xml/content-handler
+				   clojure.xml/element
+				   clojure.xml/emit
+				   clojure.xml/emit-element
+				   clojure.xml/startparse-sax
+				   clojure.xml/tag
+				   clojure.pprint/*print-base*
+				   clojure.pprint/*print-miser-width*
+				   clojure.pprint/*print-pprint-dispatch*
+				   clojure.pprint/*print-pretty*
+				   clojure.pprint/*print-radix*
+				   clojure.pprint/*print-suppress-namespaces*
+				   clojure.pprint/code-dispatch
+				   clojure.pprint/formatter
+				   clojure.pprint/formatter-out
+				   clojure.pprint/fresh-line
+				   clojure.pprint/get-pretty-writer
+				   clojure.pprint/pprint-indent
+				   clojure.pprint/pprint-logical-block
+				   clojure.pprint/pprint-newline
+				   clojure.pprint/pprint-tab
+				   clojure.pprint/print-length-loop
+				   clojure.pprint/set-pprint-dispatch
+				   clojure.pprint/simple-dispatch
+				   clojure.pprint/with-pprint-dispatch
+				   clojure.pprint/write
+				   clojure.pprint/write-out
+				   clojure.java.browse/*open-url-script*
+				   clojure.java.shell/*sh-dir*
+				   clojure.java.shell/*sh-env*
+				   clojure.repl/demunge
+				   clojure.repl/root-cause
+				   clojure.repl/set-break-handler
+				   clojure.repl/stack-element-str
+				   clojure.repl/thread-stopper
+				   clojure.java.javadoc/*core-java-api*
+				   clojure.java.javadoc/*feeling-lucky*
+				   clojure.java.javadoc/*feeling-lucky-url*
+				   clojure.java.javadoc/*local-javadocs*
+				   clojure.java.javadoc/*remote-javadocs*
+				   clojure.java.javadoc/add-local-javadoc
+				   clojure.java.javadoc/add-remote-javadoc
+				   clojure.java.io/Coercions
+				   clojure.java.io/default-streams-impl)))
+	(should
+	 (not (set-difference
+		   (set-difference
+			(all-cider-symbols-qualified)
+			(all-cheatsheet-symbols-qualified))
+		   (append ignorable unfiled))))))))
+
 
 (provide 'clojure-cheatsheet-tests)
 

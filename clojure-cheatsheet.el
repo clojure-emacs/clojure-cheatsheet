@@ -37,6 +37,8 @@
        (clojure.core rand rand-int))
       ("BigDecimal"
        (clojure.core with-precision))
+	  ("Ratios"
+	   (clojure.core numerator denominator ratio?))
       ("Arbitrary Precision Arithmetic"
        (clojure.core +\' -\' *\' inc\' dec\'))
       ("Unchecked"
@@ -95,14 +97,15 @@
      ("Generic Ops"
       (clojure.core count empty not-empty into conj))
      ("Walking"
-      (clojure.walk walk prewalk prewalk-demo prewalk-replace postwalk postwalk-demo postwalk-replace))
+      (clojure.walk walk prewalk prewalk-demo prewalk-replace postwalk postwalk-demo postwalk-replace keywordize-keys stringify-keys))
      ("Content tests"
       (clojure.core distinct? empty? every? not-every? some not-any?))
      ("Capabilities"
       (clojure.core sequential? associative? sorted? counted? reversible?))
      ("Type tests"
-      (clojure.core coll? list? vector? set? map? seq?))
-
+      (clojure.core type class coll? list? vector? set? map? seq?
+					number? integer? float? decimal? class? rational? ratio?
+					chunked-seq? reduced? special-symbol?))
      ("Lists"
       ("Create"
        (clojure.core list list*))
@@ -136,7 +139,7 @@
       ("Test"
        (clojure.set subset? superset?)))
 
-     ("Maps"
+	 ("Maps"
       ("Create"
        (clojure.core hash-map array-map zipmap sorted-map sorted-map-by bean frequencies group-by))
       ("Examine"
@@ -225,19 +228,26 @@
       (clojure.core binding locking time)
       (clojure.core with-in-str with-local-vars with-open with-out-str with-precision with-redefs with-redefs-fn))
      ("Lazy"
-      (clojure.core lazy-cat lazy-seq delay))
+      (clojure.core lazy-cat lazy-seq delay delay?))
      ("Doc."
       (clojure.core assert comment)
-      (clojure.repl doc)))
+      (clojure.repl doc dir dir-fn source-fn)))
 
     ("Java Interop"
      (:url "Documentation" "http://clojure.org/java_interop")
      ("General"
       (:special new set!)
-      (clojure.core .. doto bean comparator enumeration-seq import iterator-seq memfn))
+      (clojure.core .. doto bean comparator enumeration-seq import iterator-seq memfn definterface supers bases))
      ("Cast"
       (clojure.core boolean byte short char int long float double bigdec bigint num cast biginteger))
-     ("Exceptions"
+	 ("Java Arrays"
+	  ("Create"
+	   (clojure.core boolean-array byte-array double-array char-array float-array int-array long-array make-array object-array short-array to-array))
+	  ("Manipulate"
+	   (clojure.core aclone aget aset alength amap areduce aset-int aset-long aset-short aset-boolean aset-byte aset-char aset-double aset-float))
+	  ("Cast"
+	   (clojure.core booleans bytes chars doubles floats ints longs shorts)))
+	 ("Exceptions"
       (:special throw try catch finally)
       (clojure.core ex-info ex-data)
       (clojure.repl pst)))
@@ -255,7 +265,7 @@
      ("Examine"
       (clojure.core ns-aliases ns-imports ns-interns ns-map ns-name ns-publics ns-refers))
      ("From symbol"
-      (clojure.core resolve namespace ns-resolve))
+      (clojure.core resolve namespace ns-resolve the-ns))
      ("Remove"
       (clojure.core ns-unalias ns-unmap remove-ns)))
     ("Loading"
@@ -317,7 +327,7 @@
     ("Sequences"
      ("Creating a Lazy Seq"
       ("From Collection"
-       (clojure.core seq keys vals rseq subseq rsubseq))
+       (clojure.core seq sequence keys vals rseq subseq rsubseq))
       ("From Producer Fn"
        (clojure.core lazy-seq repeatedly iterate))
       ("From Constant"
@@ -409,10 +419,15 @@
       (clojure.core read-string with-in-str))
      ("Open"
       (clojure.core with-open)
-      (clojure.java.io  reader writer input-stream output-stream))
+      (clojure.java.io reader writer input-stream output-stream))
+	 ("Interop"
+	  (clojure.java.io make-writer make-reader make-output-stream make-input-stream))
      ("Misc"
       (clojure.core flush file-seq *in* *out* *err*)
-      (clojure.java.io file copy delete-file resource as-file as-url as-relative-path)))
+      (clojure.java.io file copy delete-file resource as-file as-url as-relative-path make-parents)))
+
+	("Metadata"
+	 (clojure.core meta with-meta alter-meta! reset-meta! vary-meta))
 
     ("Special Forms"
      (:url "Documentation" "http://clojure.org/special_forms")
