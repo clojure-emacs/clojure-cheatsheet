@@ -93,12 +93,16 @@
 
 (defun require-namespace
   (namespace)
-  (cider-eval-sync (format "(require '%s)" namespace)))
+  (let ((result (cider-eval-sync (format "(require '%s)" namespace))))
+	(should     (plist-get result :value))
+	(should     (plist-get result :done))
+	(should-not (plist-get result :stderr))))
 
 (defun check-symbol-bound
   (symbol)
   (let ((var (cider-eval-sync (format "(var %s)" symbol))))
 	(should     (plist-get var :value))
+	(should     (plist-get var :done))
 	(should-not (plist-get var :stderr))) )
 
 (ert-deftest test-clojure-function-references ()
