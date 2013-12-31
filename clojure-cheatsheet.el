@@ -11,14 +11,14 @@
 
 ;;; Commentary:
 ;;
-;; The Clojure Cheatsheet for Emacs.
+;; A quick reference system for Clojure. Fast, searchable & available offline.
+
+;;; Code:
 
 (require 'helm)
 (require 'helm-match-plugin)
 (require 'nrepl-client)
 (require 'cider-interaction)
-
-;;; Code:
 
 (defvar clojure-cheatsheet-hierarchy
   '(("Primitives"
