@@ -168,7 +168,27 @@ eg. If the cheatsheet covers clojure.repl, it should have an entry for everythin
 					 clojure.core/chunk-next
 					 clojure.core/chunk-rest
 					 clojure.core/replicate
-					 clojure.core/destructure))
+					 clojure.core/destructure
+
+					 clojure.core.async/Mix
+					 clojure.core.async/Mult
+					 clojure.core.async/Mux
+					 clojure.core.async/Pub
+					 clojure.core.async/admix*
+					 clojure.core.async/do-alt
+					 clojure.core.async/fn-handler
+					 clojure.core.async/ioc-alts!
+					 clojure.core.async/muxch*
+					 clojure.core.async/solo-mode*
+					 clojure.core.async/sub*
+					 clojure.core.async/tap*
+					 clojure.core.async/toggle*
+					 clojure.core.async/unmix*
+					 clojure.core.async/unmix-all*
+					 clojure.core.async/unsub*
+					 clojure.core.async/unsub-all*
+					 clojure.core.async/untap*
+					 clojure.core.async/untap-all*))
 
 		(unfiled '(clojure.core/await1
 				   clojure.repl/set-break-handler!
@@ -255,14 +275,14 @@ eg. If the cheatsheet covers clojure.repl, it should have an entry for everythin
 				   clojure.java.javadoc/add-local-javadoc
 				   clojure.java.javadoc/add-remote-javadoc
 				   clojure.java.io/Coercions
-				   clojure.java.io/default-streams-impl)))
+				   clojure.java.io/default-streams-impl
+				   )))
 	(should
 	 (not (set-difference
 		   (set-difference
 			(all-cider-symbols-qualified)
 			(all-cheatsheet-symbols-qualified))
-		   (append ignorable unfiled))))))))
-
+		   (append ignorable unfiled))))))
 
 (provide 'clojure-cheatsheet-tests)
 

@@ -434,7 +434,27 @@
      (:special def if do quote var recur throw try monitor-enter monitor-exit)
      (clojure.core fn loop)
      ("Binding / Destructuring"
-      (clojure.core let fn letfn defn defmacro loop for doseq if-let when-let))))
+      (clojure.core let fn letfn defn defmacro loop for doseq if-let when-let)))
+	("Async"
+	 ("Main"
+	  (clojure.core.async go go-loop <! <!! >! >!! chan put! take take! close! timeout))
+	 ("Choice"
+	  (clojure.core.async alt! alt!! alts! alts!! do-alts))
+	 ("Buffering"
+	  (clojure.core.async buffer dropping-buffer sliding-buffer unblocking-buffer?))
+	 ("Threading"
+	  (clojure.core.async thread thread-call))
+
+	 ("Mixing"
+	  (clojure.core.async admix solo-mode mix unmix unmix-all toggle merge pipe unique))
+	 ("Multiples"
+	  (clojure.core.async mult tap untap untap-all))
+	 ("Publish/Subscribe"
+	  (clojure.core.async pub sub unsub unsub-all))
+	 ("Higher Order"
+	  (clojure.core.async filter< filter> map map< map> mapcat< mapcat> partition partition-by reduce remove< remove> split))
+	 ("Pre-Populate"
+	  (clojure.core.async into onto-chan to-chan))))
   "A data structure designed for the maintainer's convenience, which we
 transform into the format that helm requires.
 
