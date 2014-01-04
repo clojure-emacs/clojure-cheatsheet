@@ -20,7 +20,7 @@
 (require 'nrepl-client)
 (require 'cider-interaction)
 
-(defvar clojure-cheatsheet-hierarchy
+(defconst clojure-cheatsheet-hierarchy
   '(("Primitives"
      ("Numbers"
       ("Arithmetic"
