@@ -454,7 +454,14 @@
 	 ("Higher Order"
 	  (clojure.core.async filter< filter> map map< map> mapcat< mapcat> partition partition-by reduce remove< remove> split))
 	 ("Pre-Populate"
-	  (clojure.core.async into onto-chan to-chan))))
+	  (clojure.core.async into onto-chan to-chan)))
+	("Unit Tests"
+	 ("Defining"
+	  (clojure.test deftest deftest- testing is are))
+	 ("Running"
+	  (clojure.test run-tests run-all-tests))
+	 ("Fixtures"
+	  (clojure.test use-fixtures join-fixtures compose-fixtures))))
   "A data structure designed for the maintainer's convenience, which we
 transform into the format that helm requires.
 
