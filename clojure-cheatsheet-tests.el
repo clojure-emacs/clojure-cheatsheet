@@ -2,7 +2,9 @@
 
 ;;; Commentary:
 ;;
-;; The Clojure Cheatsheet for Emacs tests.
+;; The Clojure Cheatsheet for Emacs tests. Note that to run this test
+;; suite, you'll need to be running a CIDER session, connected to a
+;; Clojure project with all the Cheatsheet's namespaces available.
 
 (require 'ert)
 (require 'cl-lib)
