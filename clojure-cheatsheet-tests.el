@@ -190,7 +190,35 @@ eg. If the cheatsheet covers clojure.repl, it should have an entry for everythin
 					 clojure.core.async/unsub*
 					 clojure.core.async/unsub-all*
 					 clojure.core.async/untap*
-					 clojure.core.async/untap-all*))
+					 clojure.core.async/untap-all*
+
+					 clojure.test/*initial-report-counters*
+					 clojure.test/*load-tests*
+					 clojure.test/*report-counters*
+					 clojure.test/*stack-trace-depth*
+					 clojure.test/*test-out*
+					 clojure.test/*testing-contexts*
+					 clojure.test/*testing-vars*
+					 clojure.test/assert-any
+					 clojure.test/assert-expr
+					 clojure.test/assert-predicate
+					 clojure.test/do-report
+					 clojure.test/file-position
+					 clojure.test/function?
+					 clojure.test/get-possibly-unbound-var
+					 clojure.test/inc-report-counter
+					 clojure.test/report
+					 clojure.test/set-test
+					 clojure.test/successful?
+					 clojure.test/test-all-vars
+					 clojure.test/test-ns
+					 clojure.test/test-var
+					 clojure.test/testing
+					 clojure.test/testing-contexts-str
+					 clojure.test/testing-vars-str
+					 clojure.test/try-expr
+					 clojure.test/with-test
+					 clojure.test/with-test-out))
 
 		(unfiled '(clojure.core/await1
 				   clojure.repl/set-break-handler!
@@ -278,34 +306,6 @@ eg. If the cheatsheet covers clojure.repl, it should have an entry for everythin
 				   clojure.java.javadoc/add-remote-javadoc
 				   clojure.java.io/Coercions
 				   clojure.java.io/default-streams-impl
-
-				   clojure.test/*initial-report-counters*
-				   clojure.test/*load-tests*
-				   clojure.test/*report-counters*
-				   clojure.test/*stack-trace-depth*
-				   clojure.test/*test-out*
-				   clojure.test/*testing-contexts*
-				   clojure.test/*testing-vars*
-				   clojure.test/assert-any
-				   clojure.test/assert-expr
-				   clojure.test/assert-predicate
-				   clojure.test/do-report
-				   clojure.test/file-position
-				   clojure.test/function?
-				   clojure.test/get-possibly-unbound-var
-				   clojure.test/inc-report-counter
-				   clojure.test/report
-				   clojure.test/set-test
-				   clojure.test/successful?
-				   clojure.test/test-all-vars
-				   clojure.test/test-ns
-				   clojure.test/test-var
-				   clojure.test/testing
-				   clojure.test/testing-contexts-str
-				   clojure.test/testing-vars-str
-				   clojure.test/try-expr
-				   clojure.test/with-test
-				   clojure.test/with-test-out
 				   )))
 	(should
 	 (not (set-difference
