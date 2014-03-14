@@ -551,7 +551,7 @@ The head may be:
 (defun clojure-cheatsheet/lookup-doc
   (symbol)
   (if (nrepl-current-connection-buffer)
-      (cider-doc-handler symbol)
+      (cider-doc-lookup symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/lookup-src
