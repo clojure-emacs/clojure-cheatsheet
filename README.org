@@ -1,6 +1,6 @@
 * Clojure Cheatsheet for Emacs
   
-The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.5 and
+The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.6 and
 packaged into an easy, fast, searchable, offline form:
 
 [[screenshot1.png]]
@@ -41,7 +41,7 @@ as a Helm source.
 
 ** Status
 
-Ready to use. Based on Clojure 1.5.1. Feedback welcomed.
+Ready to use. Based on Clojure 1.6. Feedback welcomed.
 ** See Also
 If you like this, and you like org-mode, then you'll probably like
 [[https://github.com/emacs-helm/helm-orgcard][helm-orgcard]] too...
