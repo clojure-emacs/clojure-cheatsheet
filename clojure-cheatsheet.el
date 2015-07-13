@@ -7,7 +7,7 @@
 ;; URL: https://github.com/krisajenkins/clojure-cheatsheet
 ;; Created: 7th August 2013
 ;; Version: 0.2.2
-;; Package-Requires: ((helm "1.5.3") (cider "0.1.8"))
+;; Package-Requires: ((helm "1.5.3") (cider "0.9.0"))
 
 ;;; Commentary:
 ;;
@@ -580,7 +580,7 @@ collections and transducers.")
 (defun clojure-cheatsheet/lookup-src
     (symbol)
   (if (nrepl-current-connection-buffer)
-    (cider-src-handler symbol)
+    (cider-find-var nil symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/item-to-helm-source

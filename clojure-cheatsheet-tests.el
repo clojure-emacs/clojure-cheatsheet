@@ -95,18 +95,16 @@
                           -uniq))
 
 (defun require-namespace
-  (namespace)
-  (let ((result (cider-eval-sync (format "(require '%s)" namespace))))
-    (should     (plist-get result :value))
-    (should     (plist-get result :done))
-    (should-not (plist-get result :stderr))))
+    (namespace)
+  (message "Requiring: %s" namespace)
+  (let ((result (nrepl-sync-request:eval (format "(require '%s)" namespace))))
+    (should (nrepl-dict-get result "status"))))
 
 (defun check-symbol-bound
-  (symbol)
-  (let ((var (cider-eval-sync (format "(var %s)" symbol))))
-    (should     (plist-get var :value))
-    (should     (plist-get var :done))
-    (should-not (plist-get var :stderr))) )
+    (symbol)
+  (message "Checking: %s" symbol)
+  (should (nrepl-dict-get (cider-sync-request:info (symbol-name symbol))
+                          "status")))
 
 (ert-deftest test-clojure-function-references ()
   "Ensure that every function we've defined can actually be found at the REPL."
@@ -119,16 +117,13 @@
   (mapc #'check-symbol-bound
         (all-cheatsheet-symbols-qualified)))
 
-
 (defun all-cider-symbols-qualified ()
   (apply 'append
          (mapcar (lambda (namespace)
-                   (let* ((dir (cider-eval-sync (format "(clojure.repl/dir %s)" namespace)))
-                          (symbols (plist-get dir :stdout))
-                          (qualified-symbols (mapcar (lambda (symbol)
-                                                       (clojure-cheatsheet/symbol-qualifier namespace symbol))
-                                                     (split-string symbols "\n" t))))
-                     qualified-symbols))
+                   (require-namespace namespace)
+                   (mapcar (lambda (symbol)
+                             (clojure-cheatsheet/symbol-qualifier namespace symbol))
+                           (cider-sync-request:ns-vars (symbol-name namespace))))
                  (all-namespaces))))
 
 (ert-deftest test-all-symbols-accounted-for ()
