@@ -139,6 +139,7 @@ eg. If the cheatsheet covers clojure.repl, it should have an entry for everythin
                      clojure.core/*allow-unresolved-vars*
                      clojure.core/*assert*
                      clojure.core/*compiler-options*
+                     clojure.core/*suppress-read*
                      clojure.core/*flush-on-newline*
                      clojure.core/*fn-loader*
                      clojure.core/*math-context*

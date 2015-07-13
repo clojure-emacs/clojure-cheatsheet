@@ -1,9 +1,11 @@
 * Clojure Cheatsheet for Emacs
-  
-The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.6 and
+The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.7.0 and
 packaged into an easy, fast, searchable, offline form:
 
 [[screenshot1.png]]
+
+** Status
+Ready to use. Based on Clojure 1.7.0.
 
 ** Installation
 
@@ -39,9 +41,6 @@ This package stands on top of Helm. The variable
 =helm-source-clojure-cheatsheet= is available if you want to mix it in
 as a Helm source.
 
-** Status
-
-Ready to use. Based on Clojure 1.6. Feedback welcomed.
 ** See Also
 If you like this, and you like org-mode, then you'll probably like
 [[https://github.com/emacs-helm/helm-orgcard][helm-orgcard]] too...

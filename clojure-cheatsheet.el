@@ -28,11 +28,11 @@
       ("Compare"
        (clojure.core = == not= < > <= >= compare))
       ("Bitwise"
-       (clojure.core bit-and bit-and-not bit-clear bit-flip bit-not bit-or bit-set bit-shift-left bit-shift-right bit-test bit-xor))
+       (clojure.core bit-and bit-and-not bit-clear bit-flip bit-not bit-or bit-set bit-shift-left bit-shift-right bit-test bit-xor unsigned-bit-shift-right))
       ("Cast"
        (clojure.core byte short long int float double bigdec bigint biginteger num rationalize))
       ("Test"
-       (clojure.core nil? identical? zero? pos? neg? even? odd?))
+       (clojure.core nil? some? identical? zero? pos? neg? even? odd?))
       ("Random"
        (clojure.core rand rand-int))
       ("BigDecimal"
@@ -105,7 +105,7 @@
      ("Type tests"
       (clojure.core type class coll? list? vector? set? map? seq?
                     number? integer? float? decimal? class? rational? ratio?
-                    chunked-seq? reduced? special-symbol?))
+                    chunked-seq? reduced? special-symbol? record?))
      ("Lists"
       ("Create"
        (clojure.core list list*))
@@ -145,11 +145,17 @@
       ("Examine"
        (clojure.core get get-in contains? find keys vals))
       ("'Change'"
-       (clojure.core assoc assoc-in dissoc merge merge-with select-keys update-in))
+       (clojure.core assoc assoc-in dissoc merge merge-with select-keys update update-in))
       ("Entry"
        (clojure.core key val))
       ("Sorted Maps"
-       (clojure.core rseq subseq rsubseq))))
+       (clojure.core rseq subseq rsubseq)))
+
+     ("Hashes"
+      (clojure.core hash hash-ordered-coll hash-unordered-coll mix-collection-hash))
+
+     ("Volatiles"
+      (clojure.core volatile! volatile? vreset! vswap!)))
 
     ("Functions"
      ("Create"
@@ -158,6 +164,14 @@
       (clojure.core -> ->> some-> some->> as-> cond-> cond->>))
      ("Test"
       (clojure.core fn? ifn?)))
+
+    ("Transducers"
+     ("Create"
+      (clojure.core cat dedupe distinct drop drop-while filter interpose keep keep-indexed map map-indexed mapcat partition-all partition-by random-sample remove replace take take-nth take-while))
+     ("Call"
+      (clojure.core ->Eduction eduction into sequence transduce completing run!))
+     ("Early Termination"
+      (clojure.core deref reduced reduced? ensure-reduced unreduced)))
 
     ("Other"
      ("XML"
@@ -171,7 +185,7 @@
       (:url "Documentation" "http://clojure.org/compilation")
       (clojure.core *compile-files* *compile-path* *file* *warn-on-reflection* compile gen-class gen-interface loaded-libs test))
      ("Misc"
-      (clojure.core eval force hash name *clojure-version* clojure-version *command-line-args*))
+      (clojure.core eval force name *clojure-version* clojure-version *command-line-args*))
      ("Pretty Printing"
       (clojure.pprint pprint print-table pp *print-right-margin*))
      ("Browser / Shell"
@@ -190,6 +204,9 @@
       (clojure.core with-local-vars var-get var-set alter-var-root var?))
      ("Var Validators"
       (clojure.core set-validator! get-validator)))
+
+    ("Reader Conditionals"
+     (clojure.core reader-conditional reader-conditional? tagged-literal tagged-literal?))
 
     ("Abstractions"
      ("Protocols"
@@ -249,7 +266,7 @@
        (clojure.core booleans bytes chars doubles floats ints longs shorts)))
      ("Exceptions"
       (:special throw try catch finally)
-      (clojure.core ex-info ex-data)
+      (clojure.core ex-info ex-data Throwable->map)
       (clojure.repl pst)))
 
     ("Namespaces"
@@ -339,7 +356,7 @@
 
      ("Seq in, Seq out"
       ("Get shorter"
-       (clojure.core distinct filter remove for))
+       (clojure.core distinct dedupe filter remove for))
       ("Get longer"
        (clojure.core cons conj concat lazy-cat mapcat cycle interleave interpose)))
      ("Tail-items"
@@ -347,7 +364,7 @@
      ("Head-items"
       (clojure.core take take-nth take-while butlast drop-last for))
      ("'Change'"
-      (clojure.core conj concat distinct flatten group-by partition partition-all partition-by split-at split-with filter remove replace shuffle))
+      (clojure.core conj concat distinct flatten group-by partition partition-all partition-by split-at split-with filter remove replace shuffle random-sample))
      ("Rearrange"
       (clojure.core reverse sort sort-by compare))
      ("Process items"
@@ -434,7 +451,7 @@
      (:special def if do quote var recur throw try monitor-enter monitor-exit)
      (clojure.core fn loop)
      ("Binding / Destructuring"
-      (clojure.core let fn letfn defn defmacro loop for doseq if-let when-let)))
+      (clojure.core let fn letfn defn defmacro loop for doseq if-let if-some when-let when-some)))
     ("Async"
      ("Main"
       (clojure.core.async go go-loop <! <!! >! >!! chan put! take take! close! timeout))
@@ -442,6 +459,8 @@
       (clojure.core.async alt! alt!! alts! alts!! do-alts))
      ("Buffering"
       (clojure.core.async buffer dropping-buffer sliding-buffer unblocking-buffer?))
+     ("Pipelines"
+      (clojure.core.async pipeline pipeline-async pipeline-blocking))
      ("Threading"
       (clojure.core.async thread thread-call))
 
@@ -459,7 +478,7 @@
      ("Defining"
       (clojure.test deftest deftest- testing is are))
      ("Running"
-      (clojure.test run-tests run-all-tests))
+      (clojure.test run-tests run-all-tests test-vars))
      ("Fixtures"
       (clojure.test use-fixtures join-fixtures compose-fixtures))))
   "A data structure designed for the maintainer's convenience, which we
