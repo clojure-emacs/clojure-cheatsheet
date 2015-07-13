@@ -16,7 +16,7 @@
 ;;; Code:
 
 (defmacro should-propagate-to
-  (form result)
+    (form result)
   `(should (equal (clojure-cheatsheet/propagate-headings (quote ,form))
                   (quote ,result))))
 
@@ -75,8 +75,8 @@
   (if (and (listp node)
            (car node)
            (symbolp (car node)))
-	(mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier (car node))
-			(cdr node))
+    (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier (car node))
+            (cdr node))
     node))
 
 (defun all-cheatsheet-symbols-qualified ()
