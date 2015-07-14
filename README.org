@@ -18,7 +18,7 @@ Alternatively just grab the single =clojure-cheatsheet.el= file and
 install that in your preferred way.
 
 ** Basic Usage
-   
+
 Call =M-x clojure-cheatsheet= and the cheatsheet will appear. Type
 in some terms (space separated) to narrow down the list. For example,
 try typing in =sort map= to see some functions that deal with sorting maps.
@@ -45,3 +45,22 @@ Ready to use. Based on Clojure 1.6. Feedback welcomed.
 ** See Also
 If you like this, and you like org-mode, then you'll probably like
 [[https://github.com/emacs-helm/helm-orgcard][helm-orgcard]] too...
+
+** Building
+
+The constant =clojure-cheatsheet-hierarchy= defines the contents of
+the cheatsheet. See the docstring of that constant for a full
+description of the format.
+
+There is a test suite in =clojure-cheatsheet-tests.el=
+that checks that every symbol defined in the cheatsheet is valid, and
+that every symbol defined by Clojure is in the sheet (with a few
+explicit exceptions).
+
+To run the test suite:
+
+- Clone the project.
+- Open =clojure-cheatsheet-tests.el= and eval the whole file.
+- Call =M-x cider-jack-in= to start a Clojure REPL.
+- Call =M-x ert <RET>= to run the test suite.
+- Optional: Marvel at Emacs support for test suites.
