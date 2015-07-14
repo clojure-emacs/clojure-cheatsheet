@@ -23,7 +23,7 @@ install that in your preferred way.
 
 The cheatsheet doesn't ship with keybindings - people tend to have
 strong opinions on them. As a reminder, here's how to define custom
-=clojure-mode= keybindings:
+=clojure-mode= keybindings in your own =.emacs= config:
 
 **** Regular Emacs
 #+BEGIN_EXAMPLE
