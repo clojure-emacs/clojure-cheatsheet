@@ -472,7 +472,11 @@ The head may be:
   A symbol, in which case it's the Clojure namespace of the symbols that follow it.
   The keyword :special, in which case it's a Clojure special form - a symbol with no
   Any other keyword, in which case it's a typed item that will be passed
-    through and handled in `clojure-cheatsheet/item-to-helm-source'.")
+    through and handled in `clojure-cheatsheet/item-to-helm-source'.
+
+Note that some many Clojure symbols appear in more than once. This is
+entirely intentional. For instance, `map` belongs in the sections on
+collections and transducers.")
 
 ;;; We could just make dash.el a dependency, but I'm not sure it's worth it for one utility macro.
 (defmacro clojure-cheatsheet/->>
