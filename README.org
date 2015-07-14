@@ -19,6 +19,25 @@ M-x package-install RET clojure-cheatsheet
 Alternatively just grab the single =clojure-cheatsheet.el= file and
 install that in your preferred way.
 
+*** Keybindings
+
+The cheatsheet doesn't ship with keybindings - people tend to have
+strong opinions on them. As a reminder, here's how to define custom
+=clojure-mode= keybindings:
+
+**** Regular Emacs
+#+BEGIN_EXAMPLE
+  (eval-after-load 'clojure-mode
+    '(progn
+       (define-key clojure-mode-map (kbd "C-c C-h") #'clojure-cheatsheet)))
+#+END_EXAMPLE
+
+**** Evil Users
+#+BEGIN_EXAMPLE
+  (evil-define-key 'normal
+    clojure-mode-map "H" 'clojure-cheatsheet)
+#+END_EXAMPLE
+
 ** Basic Usage
 
 Call =M-x clojure-cheatsheet= and the cheatsheet will appear. Type
