@@ -7,7 +7,7 @@
 ;; URL: https://github.com/krisajenkins/clojure-cheatsheet
 ;; Created: 7th August 2013
 ;; Version: 0.3.0
-;; Package-Requires: ((helm "1.5.3") (cider "0.9.0"))
+;; Package-Requires: ((helm "1.7.7") (cider "0.9.0")) ;; TODO Helm core?
 
 ;;; Commentary:
 ;;
@@ -16,7 +16,7 @@
 ;;; Code:
 
 (require 'helm)
-(require 'helm-match-plugin)
+(require 'helm-multi-match)
 (require 'nrepl-client)
 (require 'cider-interaction)
 (require 'cl-lib)
@@ -598,7 +598,7 @@ collections and transducers.")
                                 item))
                             entries))
       (match . ((lambda (candidate)
-                  (helm-mp-3-match (format "%s %s" candidate ,heading)))))
+                  (helm-mm-3-match (format "%s %s" candidate ,heading)))))
       (action-transformer (lambda (action-list current-selection)
                             (if (and (listp current-selection)
                                      (eq (car current-selection) :url))
