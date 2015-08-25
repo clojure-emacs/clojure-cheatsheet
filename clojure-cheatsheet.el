@@ -19,6 +19,7 @@
 (require 'helm-match-plugin)
 (require 'nrepl-client)
 (require 'cider-interaction)
+(require 'cl-lib)
 
 (defconst clojure-cheatsheet-hierarchy
   '(("Primitives"
