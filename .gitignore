@@ -1,6 +1,5 @@
 *.elc
 /clojure-cheatsheet-autoloads.el
-/target/repl-port
-/target/stale/extract-native.dependencies
+/target
 /.nrepl-port
 /.lein-repl-history
