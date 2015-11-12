@@ -541,7 +541,7 @@ collections and transducers.")
    #'identity
    (lambda (item)
      (if (listp item)
-       (destructuring-bind (head &rest tail) item
+       (cl-destructuring-bind (head &rest tail) item
          (cond ((equal :special head) tail)
                ((keywordp head) item)
                ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
@@ -587,12 +587,12 @@ collections and transducers.")
 (defun clojure-cheatsheet/item-to-helm-source
     (item)
   "Turn ITEM, which will be (\"HEADING\" candidates...), into a helm-source."
-  (destructuring-bind (heading &rest entries) item
+  (cl-destructuring-bind (heading &rest entries) item
     `((name . ,heading)
       (candidates ,@(mapcar (lambda (item)
                               (if (and (listp item)
                                        (keywordp (car item)))
-                                (destructuring-bind (kind title value) item
+                                (cl-destructuring-bind (kind title value) item
                                   (cons title
                                         (list kind value)))
                                 item))
