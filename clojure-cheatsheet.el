@@ -71,7 +71,7 @@
        (clojure.core str format))
       ("Use"
        (clojure.core count get subs compare)
-       (clojure.string join escape split split-lines replace replace-first reverse re-quote-replacement))
+       (clojure.string join escape split split-lines replace replace-first reverse re-quote-replacement index-of last-index-of starts-with? ends-with? includes?))
       ("Regex"
        (:url "Java's Regex Syntax" "http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html")
        (clojure.core re-find re-seq re-matches re-pattern re-matcher re-groups)
@@ -144,7 +144,7 @@
       ("Create"
        (clojure.core hash-map array-map zipmap sorted-map sorted-map-by bean frequencies group-by))
       ("Examine"
-       (clojure.core get get-in contains? find keys vals))
+       (clojure.core get get-in contains? find keys vals map-entry?))
       ("'Change'"
        (clojure.core assoc assoc-in dissoc merge merge-with select-keys update update-in))
       ("Entry"
@@ -455,7 +455,7 @@
       (clojure.core let fn letfn defn defmacro loop for doseq if-let if-some when-let when-some)))
     ("Async"
      ("Main"
-      (clojure.core.async go go-loop <! <!! >! >!! chan put! take take! close! timeout))
+      (clojure.core.async go go-loop <! <!! >! >!! chan put! take take! close! timeout offer! poll! promise-chan))
      ("Choice"
       (clojure.core.async alt! alt!! alts! alts!! do-alts))
      ("Buffering"
