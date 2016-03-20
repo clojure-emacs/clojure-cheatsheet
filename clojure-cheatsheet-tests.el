@@ -97,7 +97,7 @@
 (defun require-namespace
     (namespace)
   (message "Requiring: %s" namespace)
-  (let ((result (nrepl-sync-request:eval (format "(require '%s)" namespace))))
+  (let ((result (cider-nrepl-sync-request:eval (format "(require '%s)" namespace))))
     (should (nrepl-dict-get result "status"))))
 
 (defun check-symbol-bound
@@ -109,7 +109,7 @@
 (ert-deftest test-clojure-function-references ()
   "Ensure that every function we've defined can actually be found at the REPL."
 
-  (should (nrepl-current-connection-buffer))
+  (should (cider-current-connection))
 
   (mapc #'require-namespace
         (all-namespaces))
