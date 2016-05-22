@@ -20,6 +20,7 @@
 (require 'nrepl-client)
 (require 'cider-interaction)
 (require 'cl-lib)
+(require 'cider-doc)
 
 (defconst clojure-cheatsheet-hierarchy
   '(("Primitives"
@@ -574,13 +575,13 @@ collections and transducers.")
 
 (defun clojure-cheatsheet/lookup-doc
     (symbol)
-  (if (nrepl-current-connection-buffer)
+  (if (cider-default-connection )
     (cider-doc-lookup symbol)
     (error "nREPL not connected!")))
 
 (defun clojure-cheatsheet/lookup-src
     (symbol)
-  (if (nrepl-current-connection-buffer)
+  (if (cider-default-connection )
     (cider-find-var nil symbol)
     (error "nREPL not connected!")))
 
