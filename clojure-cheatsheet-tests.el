@@ -304,8 +304,8 @@ eg. If the cheatsheet covers clojure.repl, it should have an entry for everythin
                    clojure.java.io/default-streams-impl
                    )))
     (should
-     (not (set-difference
-           (set-difference
+     (not (cl-set-difference
+           (cl-set-difference
             (all-cider-symbols-qualified)
             (all-cheatsheet-symbols-qualified))
            (append ignorable unfiled))))))
