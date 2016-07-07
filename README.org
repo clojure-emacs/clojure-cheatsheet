@@ -78,7 +78,8 @@ explicit exceptions).
 To run the test suite:
 
 - Clone the project.
-- Open =clojure-cheatsheet-tests.el= and eval the whole file.
+- Open =clojure-cheatsheet-tests.el=.
+- Call =M-x eval-buffer=.
 - Call =M-x cider-jack-in= to start a Clojure REPL.
 - Call =M-x ert <RET>= to run the test suite.
 - Optional: Marvel at Emacs' support for test suites.
