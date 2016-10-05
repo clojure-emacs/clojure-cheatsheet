@@ -514,8 +514,8 @@ The head may be:
   Any other keyword, in which case it's a typed item that will be passed
     through and handled in `clojure-cheatsheet/item-to-helm-source'.
 
-Note that some many Clojure symbols appear in more than once. This is
-entirely intentional. For instance, `map` belongs in the sections on
+Note that some many Clojure symbols appear in more than once.  This is
+entirely intentional.  For instance, `map` belongs in the sections on
 collections and transducers.")
 
 ;;; We could just make dash.el a dependency, but I'm not sure it's worth it for one utility macro.
@@ -528,7 +528,8 @@ collections and transducers.")
                            (list result))))))
 
 (defun clojure-cheatsheet/treewalk (before after node)
-  "Walk a tree.  Invoke BEFORE before the walk, and AFTER after it, on each NODE."
+  "Walk a tree.
+Invoke BEFORE before the walk, and AFTER after it, on each NODE."
   (clojure-cheatsheet/->> node
                           (funcall before)
                           ((lambda (new-node)
@@ -540,7 +541,7 @@ collections and transducers.")
                           (funcall after)))
 
 (defun clojure-cheatsheet/symbol-qualifier (namespace symbol)
-  "Given a (Clojure) namespace and a symbol, fully-qualify that symbol."
+  "Given a (Clojure) NAMESPACE and a SYMBOL, fully-qualify that symbol."
   (intern (format "%s/%s" namespace symbol)))
 
 (defun clojure-cheatsheet/string-qualifier (head subnode)
