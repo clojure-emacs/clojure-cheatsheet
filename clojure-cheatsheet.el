@@ -588,12 +588,12 @@ collections and transducers.")
 (defun clojure-cheatsheet/lookup-doc (symbol)
   (if (cider-connected-p)
       (cider-doc-lookup symbol)
-    (error "CIDER not connected!")))
+    (user-error "CIDER not connected!")))
 
 (defun clojure-cheatsheet/lookup-src (symbol)
   (if (cider-connected-p)
       (cider-find-var nil symbol)
-    (error "CIDER not connected!")))
+    (user-error "CIDER not connected!")))
 
 (defun clojure-cheatsheet/item-to-helm-source (item)
   "Turn ITEM, which will be (\"HEADING\" candidates...), into a helm-source."
