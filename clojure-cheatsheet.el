@@ -1,17 +1,37 @@
 ;;; clojure-cheatsheet.el --- The Clojure Cheatsheet for Emacs
-;; Copyright 2013 Kris Jenkins
+
+;; Copyright 2013-2016 Kris Jenkins
 
 ;; Author: Kris Jenkins <krisajenkins@gmail.com>
 ;; Maintainer: Kris Jenkins <krisajenkins@gmail.com>
-;; Keywords: clojure nrepl cheatsheet helm
-;; URL: https://github.com/krisajenkins/clojure-cheatsheet
+;; Keywords: clojure cider cheatsheet helm
+;; URL: https://github.com/clojure-emacs/clojure-cheatsheet
 ;; Created: 7th August 2013
 ;; Version: 0.4.0
 ;; Package-Requires: ((helm "1.7.7") (cider "0.9.0")) ;; TODO Helm core?
 
+;; This file is not part of GNU Emacs.
+
 ;;; Commentary:
+
+;; A quick reference system for Clojure.  Fast, searchable & available offline.
+
+;;; License:
+
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 3
+;; of the License, or (at your option) any later version.
 ;;
-;; A quick reference system for Clojure. Fast, searchable & available offline.
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
 
