@@ -519,35 +519,31 @@ entirely intentional. For instance, `map` belongs in the sections on
 collections and transducers.")
 
 ;;; We could just make dash.el a dependency, but I'm not sure it's worth it for one utility macro.
-(defmacro clojure-cheatsheet/->>
-    (&rest body)
+(defmacro clojure-cheatsheet/->> (&rest body)
   (let ((result (pop body)))
     (dolist (form body result)
       (setq result (append (if (sequencep form)
-                             form
+                               form
                              (list form))
                            (list result))))))
 
-(defun clojure-cheatsheet/treewalk
-    (before after node)
+(defun clojure-cheatsheet/treewalk (before after node)
   "Walk a tree.  Invoke BEFORE before the walk, and AFTER after it, on each NODE."
   (clojure-cheatsheet/->> node
                           (funcall before)
                           ((lambda (new-node)
                              (if (listp new-node)
-                               (mapcar (lambda (child)
-                                         (clojure-cheatsheet/treewalk before after child))
-                                       new-node)
+                                 (mapcar (lambda (child)
+                                           (clojure-cheatsheet/treewalk before after child))
+                                         new-node)
                                new-node)))
                           (funcall after)))
 
-(defun clojure-cheatsheet/symbol-qualifier
-    (namespace symbol)
+(defun clojure-cheatsheet/symbol-qualifier (namespace symbol)
   "Given a (Clojure) namespace and a symbol, fully-qualify that symbol."
   (intern (format "%s/%s" namespace symbol)))
 
-(defun clojure-cheatsheet/string-qualifier
-    (head subnode)
+(defun clojure-cheatsheet/string-qualifier (head subnode)
   (cond
    ((keywordp (car subnode)) (list head subnode))
    ((symbolp (car subnode)) (cons head subnode))
@@ -555,23 +551,21 @@ collections and transducers.")
                                   (cdr subnode)))
    (t (mapcar (apply-partially 'clojure-cheatsheet/string-qualifier head) subnode))))
 
-(defun clojure-cheatsheet/propagate-headings
-    (node)
+(defun clojure-cheatsheet/propagate-headings (node)
   (clojure-cheatsheet/treewalk
    #'identity
    (lambda (item)
      (if (listp item)
-       (cl-destructuring-bind (head &rest tail) item
-         (cond ((equal :special head) tail)
-               ((keywordp head) item)
-               ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
-               ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
-               (t item)))
+         (cl-destructuring-bind (head &rest tail) item
+           (cond ((equal :special head) tail)
+                 ((keywordp head) item)
+                 ((symbolp head) (mapcar (apply-partially #'clojure-cheatsheet/symbol-qualifier head) tail))
+                 ((stringp head) (mapcar (apply-partially #'clojure-cheatsheet/string-qualifier head) tail))
+                 (t item)))
        item))
    node))
 
-(defun clojure-cheatsheet/flatten
-    (node)
+(defun clojure-cheatsheet/flatten (node)
   "Flatten NODE, which is a tree structure, into a list of its leaves."
   (cond
    ((not (listp node)) node)
@@ -579,8 +573,7 @@ collections and transducers.")
    ((listp (car node)) (apply 'append (mapcar 'clojure-cheatsheet/flatten node)))
    (t (list (mapcar 'clojure-cheatsheet/flatten node)))))
 
-(defun clojure-cheatsheet/group-by-head
-    (data)
+(defun clojure-cheatsheet/group-by-head (data)
   "Group the DATA, which should be a list of lists, by the head of each list."
   (let ((result '()))
     (dolist (item data result)
@@ -588,33 +581,30 @@ collections and transducers.")
              (tail (cdr item))
              (current (cdr (assoc head result))))
         (if current
-          (setf (cdr (assoc head result))
-                (append current tail))
+            (setf (cdr (assoc head result))
+                  (append current tail))
           (setq result (append result (list item))))))))
 
-(defun clojure-cheatsheet/lookup-doc
-    (symbol)
+(defun clojure-cheatsheet/lookup-doc (symbol)
   (if (cider-connected-p)
-    (cider-doc-lookup symbol)
+      (cider-doc-lookup symbol)
     (error "nREPL not connected!")))
 
-(defun clojure-cheatsheet/lookup-src
-    (symbol)
+(defun clojure-cheatsheet/lookup-src (symbol)
   (if (cider-connected-p)
-    (cider-find-var nil symbol)
+      (cider-find-var nil symbol)
     (error "nREPL not connected!")))
 
-(defun clojure-cheatsheet/item-to-helm-source
-    (item)
+(defun clojure-cheatsheet/item-to-helm-source (item)
   "Turn ITEM, which will be (\"HEADING\" candidates...), into a helm-source."
   (cl-destructuring-bind (heading &rest entries) item
     `((name . ,heading)
       (candidates ,@(mapcar (lambda (item)
                               (if (and (listp item)
                                        (keywordp (car item)))
-                                (cl-destructuring-bind (kind title value) item
-                                  (cons title
-                                        (list kind value)))
+                                  (cl-destructuring-bind (kind title value) item
+                                    (cons title
+                                          (list kind value)))
                                 item))
                             entries))
       (match . ((lambda (candidate)
@@ -622,8 +612,8 @@ collections and transducers.")
       (action-transformer (lambda (action-list current-selection)
                             (if (and (listp current-selection)
                                      (eq (car current-selection) :url))
-                              '(("Browse" . (lambda (item)
-                                              (helm-browse-url (cadr item)))))
+                                '(("Browse" . (lambda (item)
+                                                (helm-browse-url (cadr item)))))
                               '(("Lookup Docs" . clojure-cheatsheet/lookup-doc)
                                 ("Lookup Source" . clojure-cheatsheet/lookup-src))))))))
 
