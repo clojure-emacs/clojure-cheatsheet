@@ -37,7 +37,6 @@
 
 (require 'helm)
 (require 'helm-multi-match)
-(require 'nrepl-client)
 (require 'cider-interaction)
 (require 'cl-lib)
 
