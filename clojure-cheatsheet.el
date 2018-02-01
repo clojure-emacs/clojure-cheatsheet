@@ -40,6 +40,8 @@
 (require 'cider-interaction)
 (require 'cl-lib)
 
+(warn "This package is now deprecated as its functionality was fully integrated into CIDER and helm-cider")
+
 (defconst clojure-cheatsheet-hierarchy
   '(("Primitives"
      ("Numbers"

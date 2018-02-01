@@ -1,3 +1,7 @@
+*This repository is now deprecated*, as the functionality was moved
+upstream to [[https://github.com/clojure-emacs/cider][CIDER]] and
+[[https://github.com/clojure-emacs/helm-cider][helm-cider]].
+
 * Clojure Cheatsheet for Emacs
 The incredibly handy [[http://clojure.org/cheatsheet][Clojure Cheatsheet]], updated for Clojure 1.7.0 and
 packaged into an easy, fast, searchable, offline form:
